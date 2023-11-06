@@ -10,21 +10,26 @@ import csv
 from utils.constants import *
 from utils.support import *
 from tabulate import tabulate
+import shutil
+
+username = 'your_username'
 
 
 def getSherlock(username: str) -> dict:
-    # clone repo and run
-    # os.system("git clone https://github.com/sherlock-project/sherlock.git")
-    # os.chdir("sherlock") # inside: /sherlock
-    # os.system(f"{python} sherlock --verbose --no-color --nsfw --csv {username}")
-    # os.chdir("../") # inside: /
 
-    # move files to work dir
-    # os.system(f"mv ./sherlock/{username}.* ./session/{username}/")
-    # os.chdir("../") # inside: ./session/username
+    os.system(f"{python} sherlock --verbose --no-color --nsfw --csv {username}")
+    # os.system(f"mv {username}/* sessions/{username}/")
+    shutil.move(username, f'session/{username}/')
+    try:
+        shutil.rmtree(username)
+    except Exception as e:
+        print(f"Error: {e}")
 
     # open and parse data from .csv saved from sherlock
-    csv_file = f"{sanitize_username(username)}.csv"
+    # which has been moved to session/{username}
+    csv_file = os.path.join(
+        os.getcwd(), 'session', username, f"{username}.csv"
+    )
     data = {}
     with open(csv_file, mode='r', newline='') as file:
         reader = csv.DictReader(file)

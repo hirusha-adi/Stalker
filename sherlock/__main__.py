@@ -1,4 +1,5 @@
 import sys
+import os
 
 print("Running Sherlock")
 
@@ -32,5 +33,13 @@ hirushaadi,metacritic,https://www.metacritic.com/,https://www.metacritic.com/use
 
 
 # {python} sherlock --verbose --no-color --nsfw --csv {username}
-username = sys.argv[1:][0]
+username = sys.argv[1:][-1]
 print(username)
+
+if not os.path.isdir(os.path.join(os.getcwd(), username)):
+    os.mkdir(username)
+csv_path = os.path.join(os.getcwd(), username, f'{username}.csv')
+with open(csv_path, 'w') as file:
+    file.write(data_csv)
+
+print("Quitting Sherlock")
