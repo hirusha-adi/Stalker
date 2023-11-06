@@ -11,15 +11,19 @@ from utils.constants import *
 from utils.support import *
 from tabulate import tabulate
 import shutil
+from database.handle import get_sherlock_item_by_uname, add_sherlock
 
-username = 'your_username'
 
-
-def getSherlock(username: str) -> dict:
+def getSherlock(username: str, add_to_db: bool = False) -> dict:
 
     os.system(f"{python} sherlock --verbose --no-color --nsfw --csv {username}")
-    # os.system(f"mv {username}/* sessions/{username}/")
-    shutil.move(username, f'session/{username}/')
+
+    # os.system(f"mv {username}/* session/{username}/")
+    try:
+        shutil.move(f'{username}/', Path.session)
+    except shutil.Error as e:
+        print(f"Error: {e}")
+
     try:
         shutil.rmtree(username)
     except Exception as e:
@@ -30,6 +34,7 @@ def getSherlock(username: str) -> dict:
     csv_file = os.path.join(
         os.getcwd(), 'session', username, f"{username}.csv"
     )
+    print(csv_file)
     data = {}
     with open(csv_file, mode='r', newline='') as file:
         reader = csv.DictReader(file)
@@ -54,6 +59,10 @@ def getSherlock(username: str) -> dict:
                 "response_time_s": response_time
             })
 
+            if add_to_db:
+                add_sherlock(uname=username, pname=name, url=url_user,
+                             http_status=http_status, response_time=response_time)
+
         return data
 
 
@@ -63,6 +72,14 @@ def showSherlock(data: dict) -> None:
         headers = services[0].keys()
         rows = [list(service.values()) for service in services]
         print(tabulate(rows, headers, tablefmt="pretty"))
+
+
+def returnSherlock(uname):
+    data = get_sherlock_item_by_uname(uname=uname)
+    if len(data) == 0:  # data is not already loaded
+        getSherlock(username=uname, add_to_db=True)
+        data = get_sherlock_item_by_uname(uname=uname)
+    return data
 
 
 if __name__ == "__main__":

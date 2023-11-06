@@ -58,9 +58,56 @@
         </div>
     </nav>
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, corporis voluptate quaerat obcaecati incidunt
-        ducimus quos blanditiis magnam vel! Officiis ex veritatis neque esse obcaecati dolorem aliquam culpa eveniet
-        aspernatur.</p>
+    <div class="container">
+
+        <div id="top-part">
+            <br>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-6 text-center">
+                    <div class="my-div">
+                        <img src="{{ url_for('static', filename='images/logo-with-text.png') }}" alt="logo"
+                            width="100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sherlock">
+            <br>
+            <h2>Sherlock</h2>
+            <p>
+                Sherlock is an open-source intelligence (OSINT) tool designed for online investigations. It allows users
+                to
+                search for and gather information from various online platforms and social media networks based on a
+                specific username or profile name. Sherlock is particularly useful for online reconnaissance, digital
+                footprint analysis, and information gathering about individuals across the internet.
+
+                The displayed table on the webpage represents profiles collected by Sherlock during its online
+                investigations. These profiles include data such as usernames, platform names, profile links, HTTP
+                status
+                codes, and response times, all of which are collected from various online sources and platforms. The
+                table
+                provides a structured and organized view of the information gathered by Sherlock, making it easier for
+                users
+                to access and analyze the collected data.
+            </p>
+            <table class="table table-striped table-hover" id="sherlock-table-list">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Platform Name</th>
+                        <th scope="col">Profile Link</th>
+                        <th scope="col">HTTP Status</th>
+                        <th scope="col">Response Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
 
     <!-- About - Offcanvas Side -->
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasAboutMe"
@@ -129,6 +176,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
         integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $.get('/get/sherlock', function (data) {
+                if (data.length === 0) {
+                    $('#sherlock-table-list tbody').html('<tr><td colspan="6">No results</td></tr>');
+                } else {
+                    var tableBody = $('#sherlock-table-list tbody');
+                    $.each(data, function (index, item) {
+                        var row = '<tr>' +
+                            '<td>' + item[0] + '</td>' +
+                            '<td>' + item[1] + '</td>' +
+                            '<td>' + item[2] + '</td>' +
+                            '<td><a href="' + item[3] + '">' + item[3] + '</a></td>' +
+                            '<td>' + item[4] + '</td>' +
+                            '<td>' + item[5] + '</td>' +
+                            '</tr>';
+                        tableBody.append(row);
+                    });
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>
