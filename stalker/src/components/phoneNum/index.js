@@ -4,8 +4,8 @@ import SetSettings from './setSettings'
 const phoneNum = () => {
     return (
         <div>
+            <h1>Phoneinfoga</h1>
             <SetSettings />
-            <h1>Phone Numbers Page</h1>
         </div>
     );
 }
