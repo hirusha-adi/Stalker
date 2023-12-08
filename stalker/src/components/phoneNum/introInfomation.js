@@ -13,7 +13,7 @@ const FeaturesList = ({ title, items }) => {
   return (
     <>
       <h2>{title}</h2>
-      <ul>{generateListItems()}</ul>;
+      <ul>{generateListItems()}</ul>
     </>
   );
 };
@@ -26,7 +26,7 @@ const IntroInformation = () => {
   };
 
   const IntoTitle = () => (
-    <h1 onClick={handleToggleCollapse}>
+    <h2 onClick={handleToggleCollapse}>
       What is Phoneinfoga?
       <IconButton size="large" onClick={handleToggleCollapse}>
         {collapsed ? (
@@ -35,7 +35,7 @@ const IntroInformation = () => {
           <ExpandLessIcon fontSize="inherit" />
         )}
       </IconButton>
-    </h1>
+    </h2>
   );
 
   const features = [
