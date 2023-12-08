@@ -1,9 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import Home from './pages/index';
-import PhoneNumbers from './pages/phoneNum';
 import Container from '@mui/material/Container';
+
+
+// Components
+import NavBar from './components/NavBar';
+
+// Main Pages (has all the contents)
+import Home from './components/home/index';
+import PhoneNum from './components/phoneNum/index';
+
 
 const App = () => {
   return (
@@ -12,7 +18,7 @@ const App = () => {
       <Container maxWidth="md">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/phone_numbers" element={<PhoneNumbers />} />
+          <Route path="/phoneinfoga" element={<PhoneNum />} />
         </Routes>
       </Container>
     </Router>
