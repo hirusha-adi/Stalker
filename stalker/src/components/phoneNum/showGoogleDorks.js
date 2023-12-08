@@ -23,8 +23,8 @@ const columns = [
   },
 ];
 
-const GoogleDorksTable = ({ title, rows }) => {
-  return (
+const GoogleDorksTable = ({ title, rows }) =>
+  rows.length === 0 ? null : (
     <>
       <h2>{title}</h2>
       <div style={{ height: 400, width: "100%" }}>
@@ -42,17 +42,18 @@ const GoogleDorksTable = ({ title, rows }) => {
       </div>
     </>
   );
-};
 
 const ShowGoogleDorks = ({ data }) => {
-  // Process Data and append them to the relevant
   return (
     <>
-      <GoogleDorksTable title="Social Media" rows={data} />
-      <GoogleDorksTable title="Disposable providers" rows={data} />
-      <GoogleDorksTable title="Reputation" rows={data} />
-      <GoogleDorksTable title="Individuals" rows={data} />
-      <GoogleDorksTable title="General" rows={data} />
+      <GoogleDorksTable title="Social Media" rows={data.socialMedia} />
+      <GoogleDorksTable
+        title="Disposable providers"
+        rows={data.disposableProviders}
+      />
+      <GoogleDorksTable title="Reputation" rows={data.reputation} />
+      <GoogleDorksTable title="Individuals" rows={data.individuals} />
+      <GoogleDorksTable title="General" rows={data.general} />
     </>
   );
 };

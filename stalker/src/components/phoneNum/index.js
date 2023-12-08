@@ -8,17 +8,24 @@ import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 
 const phoneNum = () => {
-  const googleDorksList = [
-    { id: 1, lastName: "Hirusha", firstName: "Jon", age: 35 },
-    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-    { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-    { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-    { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-    { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  ];
+  const googleDorksData = {
+    isAllEmpty: true,
+    socialMedia: [
+      // { id: 1, lastName: "Hirusha", firstName: "Jon", age: 35 },
+    ],
+    disposableProviders: [
+      // { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
+    ],
+    reputation: [
+      // { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
+    ],
+    individuals: [
+      // { id: 1, lastName: "Hirusha", firstName: "Jon", age: 35 },
+    ],
+    general: [
+      // { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
+    ],
+  };
 
   const SearchNumber = () => (
     <div style={{ textAlign: "center" }}>
@@ -60,9 +67,15 @@ const phoneNum = () => {
       <br></br>
       <SearchNumber />
       <SetSettings />
-      <hr></hr>
-      <br></br>
-      <ShowGoogleDorks data={googleDorksList} />
+      {!googleDorksData.isAllEmpty ? (
+        <>
+          <br></br>
+          <hr></hr>
+          <h2>Google Dorks</h2>
+          <br></br>
+          <ShowGoogleDorks data={googleDorksData} />
+        </>
+      ) : null}
       <br></br>
       <br></br>
       <hr></hr>
