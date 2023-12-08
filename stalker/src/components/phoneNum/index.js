@@ -62,7 +62,7 @@ const phoneNum = () => {
       <SetSettings />
       <hr></hr>
       <br></br>
-      <ShowGoogleDorks rows={googleDorksList} />
+      <ShowGoogleDorks data={googleDorksList} />
       <br></br>
       <br></br>
       <hr></hr>

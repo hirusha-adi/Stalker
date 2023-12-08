@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+// import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 
 const columns = [
@@ -22,10 +23,10 @@ const columns = [
   },
 ];
 
-const ShowGoogleDorks = ({ rows }) => {
+const GoogleDorksTable = ({ title, rows }) => {
   return (
     <>
-      <h2>Google Dorks List</h2>
+      <h2>{title}</h2>
       <div style={{ height: 400, width: "100%" }}>
         <DataGrid
           rows={rows}
@@ -39,6 +40,19 @@ const ShowGoogleDorks = ({ rows }) => {
           checkboxSelection
         />
       </div>
+    </>
+  );
+};
+
+const ShowGoogleDorks = ({ data }) => {
+  // Process Data and append them to the relevant
+  return (
+    <>
+      <GoogleDorksTable title="Social Media" rows={data} />
+      <GoogleDorksTable title="Disposable providers" rows={data} />
+      <GoogleDorksTable title="Reputation" rows={data} />
+      <GoogleDorksTable title="Individuals" rows={data} />
+      <GoogleDorksTable title="General" rows={data} />
     </>
   );
 };
