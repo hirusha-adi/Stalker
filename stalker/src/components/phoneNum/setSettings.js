@@ -16,13 +16,13 @@ const FormItems = () => (
         <Grid container spacing={1}>
             <Grid container item spacing={3}>
                 <Grid item>
-                    <TextField id="standard-basic" label="NUMVERIFY_API_KEY" variant="standard" fullWidth />
+                    <TextField id="NUMVERIFY_API_KEY" label="NUMVERIFY_API_KEY" variant="standard" fullWidth />
                 </Grid>
                 <Grid item>
-                    <TextField id="standard-basic" label="GOOGLECSE_CX" variant="standard" fullWidth />
+                    <TextField id="GOOGLECSE_CX" label="GOOGLECSE_CX" variant="standard" fullWidth />
                 </Grid>
                 <Grid item>
-                    <TextField id="standard-basic" label="GOOGLE_API_KEY" variant="standard" fullWidth />
+                    <TextField id="GOOGLE_API_KEY" label="GOOGLE_API_KEY" variant="standard" fullWidth />
                 </Grid>
             </Grid>
         </Grid>
