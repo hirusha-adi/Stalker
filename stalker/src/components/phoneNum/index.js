@@ -80,6 +80,8 @@ const phoneNum = () => {
       <br></br>
       <hr></hr>
       <IntroInformation />
+      <br></br>
+      <br></br>
     </div>
   );
 };
