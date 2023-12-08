@@ -4,28 +4,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import Grid from "@mui/material/Grid";
-// import List from "@mui/material/List";
-// import ListItem from "@mui/material/ListItem";
-// import ListItemText from "@mui/material/ListItemText";
 
 const ListDense = ({ title, items }) => {
   const generateListItems = () => {
-    return items.map((item, index) => (
-      //   <ListItem key={index}>
-      //     <ListItemText primary={item} />
-      //   </ListItem>
-      <li>{item}</li>
-    ));
+    return items.map((item, index) => <li>{item}</li>);
   };
 
-  return (
-    //   <ListItem>
-    //     <ListItemText primary={title} />
-    //   </ListItem>
-    //   {generateListItems()}
-    // </List>
-    <ul>{generateListItems()}</ul>
-  );
+  return <ul>{generateListItems()}</ul>;
 };
 
 const IntroInformation = () => {
