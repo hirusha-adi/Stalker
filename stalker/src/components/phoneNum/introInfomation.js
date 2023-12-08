@@ -26,11 +26,8 @@ const IntroInformation = () => {
   };
 
   const IntoTitle = () => (
-    <h1
-      onClick={handleToggleCollapse}
-      // style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
-    >
-      Phoneinfoga
+    <h1 onClick={handleToggleCollapse}>
+      What is Phoneinfoga?
       <IconButton size="large" onClick={handleToggleCollapse}>
         {collapsed ? (
           <ExpandMoreIcon fontSize="inherit" />
@@ -58,20 +55,6 @@ const IntroInformation = () => {
   return (
     <>
       <br></br>
-      <br></br>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <img
-          src="https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/docs/images/banner.png"
-          alt="banner"
-          style={{ alignSelf: "center" }}
-        />
-      </div>
       <IntoTitle />
       <Collapse in={!collapsed}>
         <div>
@@ -108,6 +91,16 @@ const IntroInformation = () => {
             <FeaturesList title="Anti-features" items={anti_features} />
           </Grid>
         </Grid>
+        <h3>
+          <a
+            href="https://github.com/sundowndev/phoneinfoga"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Click here
+          </a>
+          to open the Github repository
+        </h3>
       </Collapse>
     </>
   );

@@ -11,9 +11,28 @@ const phoneNum = () => {
 
   return (
     <div>
-      <IntroInformation />
+      <br></br>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <img
+          src="https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/docs/images/banner.png"
+          alt="banner"
+          style={{ alignSelf: "center", width: "70%" }}
+        />
+      </div>
+      <br></br>
       <SearchNumber />
       <SetSettings />
+      <br></br>
+      <br></br>
+      <br></br>
+      <hr></hr>
+      <IntroInformation />
     </div>
   );
 };
