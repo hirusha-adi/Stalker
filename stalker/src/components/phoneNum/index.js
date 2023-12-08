@@ -1,13 +1,21 @@
-import React from 'react';
-import SetSettings from './setSettings'
+import React from "react";
+import SetSettings from "./setSettings";
+import IntroInformation from "./introInfomation";
 
 const phoneNum = () => {
-    return (
-        <div>
-            <h1>Phoneinfoga</h1>
-            <SetSettings />
-        </div>
-    );
-}
+  const SearchNumber = () => (
+    <div>
+      <h2>Search phone number</h2>
+    </div>
+  );
+
+  return (
+    <div>
+      <IntroInformation />
+      <SearchNumber />
+      <SetSettings />
+    </div>
+  );
+};
 
 export default phoneNum;
