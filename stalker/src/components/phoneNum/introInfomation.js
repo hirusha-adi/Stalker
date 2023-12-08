@@ -5,12 +5,17 @@ import IconButton from "@mui/material/IconButton";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import Grid from "@mui/material/Grid";
 
-const ListDense = ({ title, items }) => {
+const FeaturesList = ({ title, items }) => {
   const generateListItems = () => {
     return items.map((item, index) => <li>{item}</li>);
   };
 
-  return <ul>{generateListItems()}</ul>;
+  return (
+    <>
+      <h2>{title}</h2>
+      <ul>{generateListItems()}</ul>;
+    </>
+  );
 };
 
 const IntroInformation = () => {
@@ -86,27 +91,21 @@ const IntroInformation = () => {
             item
             xs={6}
             sx={{
-              display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <h2>Features</h2>
-            <br></br>
-            <ListDense title="Features" items={features} />
+            <FeaturesList title="Features" items={features} />
           </Grid>
           <Grid
             item
             xs={6}
             sx={{
-              display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <h2>Anti-features</h2>
-            <br></br>
-            <ListDense title="Anti-features" items={anti_features} />
+            <FeaturesList title="Anti-features" items={anti_features} />
           </Grid>
         </Grid>
       </Collapse>
