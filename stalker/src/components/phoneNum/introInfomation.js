@@ -98,7 +98,7 @@ const IntroInformation = () => {
             rel="noreferrer"
           >
             Click here
-          </a>
+          </a>{" "}
           to open the Github repository
         </h3>
       </Collapse>
