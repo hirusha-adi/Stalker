@@ -13,7 +13,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import SetSettings from "./setSettings";
 import IntroInformation from "./introInfomation";
 import ShowGoogleDorks from "./showGoogleDorks";
-import ShowInformation from "./showInformation";
+import ScannerLocal from "./scannerLocal";
 
 const phoneNum = () => {
   const phoneinfogaData = {
@@ -101,7 +101,7 @@ const phoneNum = () => {
       {phoneinfogaData.status.show_information ? (
         <>
           <h2>Number Information</h2>
-          <ShowInformation data={phoneinfogaData.information} />
+          <ScannerLocal data={phoneinfogaData.information} />
         </>
       ) : null}
 

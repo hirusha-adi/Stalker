@@ -8,7 +8,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 
-const ShowInformation = ({ data }) => {
+const ScannerLocal = ({ data }) => {
   const informationItems = [
     { label: "Raw Local", value: data.rawLocal },
     { label: "Local", value: data.local },
@@ -33,4 +33,4 @@ const ShowInformation = ({ data }) => {
   );
 };
 
-export default ShowInformation;
+export default ScannerLocal;
