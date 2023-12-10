@@ -26,11 +26,11 @@ import {
   Typography,
 } from "@mui/material";
 
-const EnvironmentTable = ({ environmentVariables }) => {
+const EnvironmentTable = ({ title, environmentVariables }) => {
   return (
     <Paper elevation={3} style={{ padding: "16px" }}>
       <Typography variant="h6" gutterBottom>
-        Environment Variables
+        {title}
       </Typography>
       <TableContainer>
         <Table>
@@ -155,7 +155,15 @@ const SetSettings = () => {
     </React.Fragment>
   );
 
-  const environmentVariables = [
+  const environmentVariables_Numverify = [
+    {
+      name: "NUMVERIFY_API_KEY	",
+      default: "",
+      description: "API key to authenticate to the Numverify API.",
+    },
+  ];
+
+  const environmentVariables_GoogleCS = [
     { name: "GOOGLECSE_CX", default: "", description: "Search engine ID." },
     {
       name: "GOOGLE_API_KEY",
@@ -198,7 +206,16 @@ const SetSettings = () => {
                 Update
               </Button>
             </Stack>
-            <EnvironmentTable environmentVariables={environmentVariables} />
+            <br></br>
+            <EnvironmentTable
+              title="Environment Variables for Numverify"
+              environmentVariables={environmentVariables_Numverify}
+            />
+            <br></br>
+            <EnvironmentTable
+              title="Environment Variables for Google Custom Search"
+              environmentVariables={environmentVariables_GoogleCS}
+            />
           </div>
         </Collapse>
       </div>
