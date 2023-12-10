@@ -42,7 +42,7 @@ const SetSettings = () => {
     <React.Fragment>
       <Grid container spacing={1} justifyContent="flex-end">
         <Grid container item spacing={4}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={3}>
             <TextField
               id="NUMVERIFY_API_KEY"
               label="NUMVERIFY_API_KEY"
@@ -50,7 +50,7 @@ const SetSettings = () => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={3}>
             <TextField
               id="GOOGLECSE_CX"
               label="GOOGLECSE_CX"
@@ -58,11 +58,20 @@ const SetSettings = () => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={3}>
             <TextField
               id="GOOGLE_API_KEY"
               label="GOOGLE_API_KEY"
               variant="standard"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <TextField
+              id="GOOGLECSE_MAX_RESULTS"
+              label="GOOGLECSE_MAX_RESULTS"
+              variant="standard"
+              placeholder="10"
               fullWidth
             />
           </Grid>
