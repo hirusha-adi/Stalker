@@ -12,7 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 // my components
 import SetSettings from "./setSettings";
 import IntroInformation from "./introInfomation";
-import ShowGoogleDorks from "./showGoogleDorks";
+import ScannerGoogleSearch from "./scannerGoogleSearch";
 import ScannerLocal from "./scannerLocal";
 
 const phoneNum = () => {
@@ -111,7 +111,7 @@ const phoneNum = () => {
           <br></br>
           <hr></hr>
           <h2>Google Dorks</h2>
-          <ShowGoogleDorks data={phoneinfogaData.googleDorks} />
+          <ScannerGoogleSearch data={phoneinfogaData.googleDorks} />
         </>
       ) : null}
 

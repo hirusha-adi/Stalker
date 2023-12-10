@@ -49,7 +49,7 @@ const GoogleDorksTable = ({ title, rows }) =>
     </>
   );
 
-const ShowGoogleDorks = ({ data }) => {
+const ScannerGoogleSearch = ({ data }) => {
   return (
     <>
       <GoogleDorksTable title="Social Media" rows={data.socialMedia} />
@@ -64,4 +64,4 @@ const ShowGoogleDorks = ({ data }) => {
   );
 };
 
-export default ShowGoogleDorks;
+export default ScannerGoogleSearch;
