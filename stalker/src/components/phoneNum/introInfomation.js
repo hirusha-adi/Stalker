@@ -1,9 +1,14 @@
+// react
 import React, { useState } from "react";
-import Collapse from "@mui/material/Collapse";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import IconButton from "@mui/material/IconButton";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+
+// mui
 import Grid from "@mui/material/Grid";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+
+// mui icons
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 const FeaturesList = ({ title, items }) => {
   const generateListItems = () => {

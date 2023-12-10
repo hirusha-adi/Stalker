@@ -1,15 +1,16 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Container from '@mui/material/Container';
+// react
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+// mui
+import Container from "@mui/material/Container";
 
-// Components
-import NavBar from './components/NavBar';
+// my components
+import NavBar from "./components/NavBar";
 
-// Main Pages (has all the contents)
-import Home from './components/home/index';
-import PhoneNum from './components/phoneNum/index';
-
+// my pages
+import Home from "./components/home/index";
+import PhoneNum from "./components/phoneNum/index";
 
 const App = () => {
   return (
@@ -23,6 +24,6 @@ const App = () => {
       </Container>
     </Router>
   );
-}
+};
 
 export default App;

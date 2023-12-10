@@ -1,12 +1,19 @@
+// react
 import React from "react";
+
+// mui
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+
+// icons
+import SearchIcon from "@mui/icons-material/Search";
+
+// my components
 import SetSettings from "./setSettings";
 import IntroInformation from "./introInfomation";
 import ShowGoogleDorks from "./showGoogleDorks";
 import ShowInformation from "./showInformation";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import SearchIcon from "@mui/icons-material/Search";
-import IconButton from "@mui/material/IconButton";
 
 const phoneNum = () => {
   const phoneinfogaData = {
