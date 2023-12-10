@@ -2,29 +2,45 @@ import React from "react";
 import SetSettings from "./setSettings";
 import IntroInformation from "./introInfomation";
 import ShowGoogleDorks from "./showGoogleDorks";
+import ShowInformation from "./showInformation";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 
 const phoneNum = () => {
-  const googleDorksData = {
-    isAllEmpty: true,
-    socialMedia: [
-      // { id: 1, lastName: "Hirusha", firstName: "Jon", age: 35 },
-    ],
-    disposableProviders: [
-      // { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-    ],
-    reputation: [
-      // { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-    ],
-    individuals: [
-      // { id: 1, lastName: "Hirusha", firstName: "Jon", age: 35 },
-    ],
-    general: [
-      // { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    ],
+  const phoneinfogaData = {
+    status: {
+      error: false,
+      error_desc: "",
+      show_information: false,
+      show_GoogleDorks: false,
+    },
+    information: {
+      rawLocal: "0713395547",
+      local: "071 339 5547",
+      e164: "+94713395547",
+      international: "94713395547",
+      country: "LK",
+    },
+    googleDorks: {
+      socialMedia: [
+        { id: 1, lastName: "Hirusha", firstName: "Jon", age: 35 },
+        { id: 2, lastName: "Hirusha", firstName: "Jon", age: 35 },
+      ],
+      disposableProviders: [
+        // { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
+      ],
+      reputation: [
+        // { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
+      ],
+      individuals: [
+        // { id: 1, lastName: "Hirusha", firstName: "Jon", age: 35 }
+      ],
+      general: [
+        // { id: 4, lastName: "Stark", firstName: "Arya", age: 16 }
+      ],
+    },
   };
 
   const SearchNumber = () => (
@@ -51,6 +67,8 @@ const phoneNum = () => {
   return (
     <div>
       <br></br>
+
+      {/* Phoneinfoga logo */}
       <div
         style={{
           display: "flex",
@@ -65,17 +83,32 @@ const phoneNum = () => {
         />
       </div>
       <br></br>
+
+      {/* Search Phone Number */}
       <SearchNumber />
+
+      {/* SetSettings - Update API Keys */}
       <SetSettings />
-      {!googleDorksData.isAllEmpty ? (
+
+      {/* Phone Number - Basic Information */}
+      {phoneinfogaData.status.show_information ? (
+        <>
+          <h2>Number Information</h2>
+          <ShowInformation data={phoneinfogaData.information} />
+        </>
+      ) : null}
+
+      {/* Google Dorks list */}
+      {phoneinfogaData.status.show_GoogleDorks ? (
         <>
           <br></br>
           <hr></hr>
           <h2>Google Dorks</h2>
-          <br></br>
-          <ShowGoogleDorks data={googleDorksData} />
+          <ShowGoogleDorks data={phoneinfogaData.googleDorks} />
         </>
       ) : null}
+
+      {/* About phoneinfoga */}
       <br></br>
       <br></br>
       <hr></hr>
