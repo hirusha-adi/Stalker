@@ -26,12 +26,14 @@ import {
   Typography,
 } from "@mui/material";
 
-const EnvironmentTable = ({ title, environmentVariables }) => {
+const EnvironmentTable = ({ title, title_href, environmentVariables }) => {
   return (
     <Paper elevation={3} style={{ padding: "16px" }}>
-      <Typography variant="h6" gutterBottom>
-        {title}
-      </Typography>
+      <a href={title_href}>
+        <Typography variant="h6" gutterBottom>
+          {title}
+        </Typography>
+      </a>
       <TableContainer>
         <Table>
           <TableHead>
@@ -209,11 +211,13 @@ const SetSettings = () => {
             <br></br>
             <EnvironmentTable
               title="Environment Variables for Numverify"
+              title_href="https://apilayer.com/marketplace/number_verification-api"
               environmentVariables={environmentVariables_Numverify}
             />
             <br></br>
             <EnvironmentTable
               title="Environment Variables for Google Custom Search"
+              title_href="https://console.cloud.google.com/apis/api/customsearch.googleapis.com/metrics"
               environmentVariables={environmentVariables_GoogleCS}
             />
           </div>
