@@ -15,6 +15,47 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+
+const EnvironmentTable = ({ environmentVariables }) => {
+  return (
+    <Paper elevation={3} style={{ padding: "16px" }}>
+      <Typography variant="h6" gutterBottom>
+        Environment Variables
+      </Typography>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Variable</TableCell>
+              <TableCell>Default</TableCell>
+              <TableCell>Description</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {environmentVariables.map((variable) => (
+              <TableRow key={variable.name}>
+                <TableCell>{variable.name}</TableCell>
+                <TableCell>{variable.default || "-"}</TableCell>
+                <TableCell>{variable.description || "-"}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
+  );
+};
+
 const SetSettings = () => {
   const [collapsed, setCollapsed] = useState(true);
 
@@ -40,45 +81,93 @@ const SetSettings = () => {
 
   const FormItems = () => (
     <React.Fragment>
-      <Grid container spacing={1} justifyContent="flex-end">
-        <Grid container item spacing={4}>
-          <Grid item xs={12} md={3}>
-            <TextField
-              id="NUMVERIFY_API_KEY"
-              label="NUMVERIFY_API_KEY"
-              variant="standard"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <TextField
-              id="GOOGLECSE_CX"
-              label="GOOGLECSE_CX"
-              variant="standard"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <TextField
-              id="GOOGLE_API_KEY"
-              label="GOOGLE_API_KEY"
-              variant="standard"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <TextField
-              id="GOOGLECSE_MAX_RESULTS"
-              label="GOOGLECSE_MAX_RESULTS"
-              variant="standard"
-              placeholder="10"
-              fullWidth
-            />
+      <>
+        <Grid container spacing={1} justifyContent="flex-end">
+          <Grid container item spacing={4}>
+            <Grid item xs={12} md={2}>
+              <h4>Numverify</h4>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <h4>NUMVERIFY_API_KEY</h4>
+            </Grid>
+            <Grid item xs={12} md={7}>
+              <TextField
+                id="NUMVERIFY_API_KEY"
+                label="NUMVERIFY_API_KEY"
+                variant="standard"
+                fullWidth
+              />
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+        <Grid container spacing={1} justifyContent="flex-end">
+          <Grid container item spacing={4}>
+            <Grid item xs={12} md={2}>
+              <h4>Googlecse</h4>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <h4>GOOGLECSE_CX</h4>
+            </Grid>
+            <Grid item xs={12} md={7}>
+              <TextField
+                id="GOOGLECSE_CX"
+                label="GOOGLECSE_CX"
+                variant="standard"
+                fullWidth
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container spacing={1} justifyContent="flex-end">
+          <Grid container item spacing={4}>
+            <Grid item xs={12} md={2}></Grid>
+            <Grid item xs={12} md={3}>
+              <h4>GOOGLE_API_KEY</h4>
+            </Grid>
+            <Grid item xs={12} md={7}>
+              <TextField
+                id="GOOGLE_API_KEY"
+                label="GOOGLE_API_KEY"
+                variant="standard"
+                fullWidth
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container spacing={1} justifyContent="flex-end">
+          <Grid container item spacing={4}>
+            <Grid item xs={12} md={2}></Grid>
+            <Grid item xs={12} md={3}>
+              <h4>GOOGLECSE_MAX_RESULTS</h4>
+            </Grid>
+            <Grid item xs={12} md={7}>
+              <TextField
+                id="GOOGLECSE_MAX_RESULTS"
+                label="GOOGLECSE_MAX_RESULTS"
+                variant="standard"
+                placeholder="defaults to: 10"
+                fullWidth
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+      </>
     </React.Fragment>
   );
+
+  const environmentVariables = [
+    { name: "GOOGLECSE_CX", default: "", description: "Search engine ID." },
+    {
+      name: "GOOGLE_API_KEY",
+      default: "",
+      description: "API key to authenticate to the Google API.",
+    },
+    {
+      name: "GOOGLECSE_MAX_RESULTS",
+      default: "10",
+      description: "Maximum results for each request.",
+    },
+  ];
 
   return (
     <div>
@@ -109,6 +198,7 @@ const SetSettings = () => {
                 Update
               </Button>
             </Stack>
+            <EnvironmentTable environmentVariables={environmentVariables} />
           </div>
         </Collapse>
       </div>
