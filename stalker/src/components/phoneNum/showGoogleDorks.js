@@ -1,6 +1,7 @@
 import React from "react";
 // import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import Typography from "@mui/material/Typography";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -26,7 +27,9 @@ const columns = [
 const GoogleDorksTable = ({ title, rows }) =>
   rows.length === 0 ? null : (
     <>
-      <h2>{title}</h2>
+      <Typography variant="h5" sx={{ marginTop: 3, marginBottom: 2 }}>
+        {title}
+      </Typography>
       <div style={{ height: 400, width: "100%" }}>
         <DataGrid
           rows={rows}
