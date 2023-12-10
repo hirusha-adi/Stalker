@@ -6,30 +6,24 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 
 const ShowInformation = ({ data }) => {
+  const informationItems = [
+    { label: "Raw Local", value: data.rawLocal },
+    { label: "Local", value: data.local },
+    { label: "E164", value: data.e164 },
+    { label: "International", value: data.international },
+    { label: "Country", value: data.country },
+  ];
+
   return (
     <TableContainer sx={{ marginTop: 2 }}>
       <Table>
         <TableBody>
-          <TableRow>
-            <TableCell>Raw Local</TableCell>
-            <TableCell>{data.rawLocal}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Local</TableCell>
-            <TableCell>{data.local}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>E164</TableCell>
-            <TableCell>{data.e164}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>International</TableCell>
-            <TableCell>{data.international}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Country</TableCell>
-            <TableCell>{data.country}</TableCell>
-          </TableRow>
+          {informationItems.map((item, index) => (
+            <TableRow key={index}>
+              <TableCell>{item.label}</TableCell>
+              <TableCell>{item.value}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
