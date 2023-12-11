@@ -4,16 +4,15 @@ import React, { useState } from "react";
 // mui
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import Tooltip from "@mui/material/Tooltip";
 
 // mui icons
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+
+// my components
+import CollapsibleSection from "../_shared/collapsibleSection";
 
 const FormItems = () => {
   const [useTor, setUseTor] = useState(false);
@@ -158,39 +157,16 @@ Include checking of NSFW sites from default list.
 };
 
 const SetSettings = () => {
-  const [collapsed, setCollapsed] = useState(true);
-
-  const handleToggleCollapse = () => {
-    setCollapsed(!collapsed);
-  };
-
-  const FormTitle = () => (
-    <h2
-      onClick={handleToggleCollapse}
-      style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
-    >
-      Advanced Options
-      <IconButton size="large" onClick={handleToggleCollapse}>
-        {collapsed ? (
-          <ExpandMoreIcon fontSize="inherit" />
-        ) : (
-          <ExpandLessIcon fontSize="inherit" />
-        )}
-      </IconButton>
-    </h2>
-  );
-
   return (
     <div>
       <div>
-        <FormTitle />
-        <Collapse in={!collapsed}>
+        <CollapsibleSection headerSize={2} title="Advanced Options">
           <div>
             <FormItems />
             <br></br>
             <br></br>
           </div>
-        </Collapse>
+        </CollapsibleSection>
       </div>
     </div>
   );
