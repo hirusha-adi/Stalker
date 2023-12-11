@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
 // my components
+import ShowSecitonHeader from "../_shared/sectionHeader";
 import SetSettings from "./setSettings";
 import IntroInformation from "./introInfomation";
 import ScannerGoogleSearch from "./scannerGoogleSearch";
@@ -36,8 +37,18 @@ const phoneNum = () => {
         { id: 2, lastName: "Hirusha", firstName: "Jon", age: 35 },
       ],
       disposableProviders: [
-        { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-        { id: 6, lastName: "Targaryen", firstName: "Daenerys", age: null },
+        {
+          id: 5,
+          lastName: "Targaryen",
+          firstName: "Daenerys",
+          age: null,
+        },
+        {
+          id: 6,
+          lastName: "Targaryen",
+          firstName: "Daenerys",
+          age: null,
+        },
       ],
       reputation: [
         { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
@@ -76,34 +87,13 @@ const phoneNum = () => {
   );
 
   return (
-    <div>
-      <br></br>
-
-      {/* Phoneinfoga logo */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <img
-          src="https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/docs/images/banner.png"
-          alt="banner"
-          style={{ alignSelf: "center", width: "70%" }}
-        />
-      </div>
-      <br></br>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <h3>Information gathering framework for phone numbers</h3>
-      </div>
-      <br></br>
+    <>
+      {/* Section Header */}
+      <ShowSecitonHeader
+        subtitle="Information gathering framework for phone numbers"
+        width="70%"
+        imgURL="https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/docs/images/banner.png"
+      />
 
       {/* Search Phone Number */}
       <SearchNumber />
@@ -122,21 +112,21 @@ const phoneNum = () => {
       {/* Google Dorks list */}
       {phoneinfogaData.status.show_GoogleDorks ? (
         <>
-          <br></br>
-          <hr></hr>
+          <br />
+          <hr />
           <h2>Google Dorks</h2>
           <ScannerGoogleSearch data={phoneinfogaData.googleDorks} />
         </>
       ) : null}
 
       {/* About phoneinfoga */}
-      <br></br>
-      <br></br>
-      <hr></hr>
+      <br />
+      <br />
+      <hr />
       <IntroInformation />
-      <br></br>
-      <br></br>
-    </div>
+      <br />
+      <br />
+    </>
   );
 };
 
