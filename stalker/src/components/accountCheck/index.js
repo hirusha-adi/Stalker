@@ -11,6 +11,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 // my components
 import IntroInformation from "./introInfomation";
+import SetSettings from "./setSettings";
 
 const AccountCheck = () => {
   const phoneinfogaData = {
@@ -24,7 +25,7 @@ const AccountCheck = () => {
 
   const SearchUsername = () => (
     <div style={{ textAlign: "center" }}>
-      <h2>Search Phone Number</h2>
+      <h2>Search Username</h2>
       <Grid container spacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={11}>
           <TextField
@@ -79,6 +80,8 @@ const AccountCheck = () => {
       {/* Search Username */}
 
       <SearchUsername />
+      <br />
+      <SetSettings />
 
       {/* About sherlock */}
       <br></br>
