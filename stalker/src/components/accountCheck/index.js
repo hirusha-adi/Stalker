@@ -13,15 +13,22 @@ import SearchIcon from "@mui/icons-material/Search";
 import IntroInformation from "./introInfomation";
 import SetSettings from "./setSettings";
 
+
+import Button from "@mui/material/Button";
+import SaveIcon from "@mui/icons-material/Save";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Stack from "@mui/material/Stack";
+
+
 const AccountCheck = () => {
-  const phoneinfogaData = {
-    status: {
-      error: false,
-      error_desc: "",
-      show_information: true,
-    },
-    accountsList: {},
-  };
+  // const phoneinfogaData = {
+  //   status: {
+  //     error: false,
+  //     error_desc: "",
+  //     show_information: true,
+  //   },
+  //   accountsList: {},
+  // };
 
   const SearchUsername = () => (
     <div style={{ textAlign: "center" }}>
@@ -82,6 +89,30 @@ const AccountCheck = () => {
       <SearchUsername />
       <br />
       <SetSettings />
+
+      {/* Buttons */}
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{
+          p: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Button
+          variant="outlined"
+          color="error"
+          startIcon={<DeleteIcon />}
+        >
+          Clear
+        </Button>
+        <Button variant="contained" endIcon={<SearchIcon />}>
+          Search
+        </Button>
+      </Stack>
+
 
       {/* About sherlock */}
       <br></br>

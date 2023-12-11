@@ -4,14 +4,10 @@ import React, { useState } from "react";
 // mui
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import SaveIcon from "@mui/icons-material/Save";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 
 // mui icons
-import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
@@ -180,28 +176,7 @@ const SetSettings = () => {
         <Collapse in={!collapsed}>
           <div>
             <FormItems />
-            <br />
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{
-                p: 2,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                variant="outlined"
-                color="error"
-                startIcon={<DeleteIcon />}
-              >
-                Clear
-              </Button>
-              <Button variant="contained" endIcon={<SaveIcon />}>
-                Update
-              </Button>
-            </Stack>
+            <br></br>
             <br></br>
           </div>
         </Collapse>
