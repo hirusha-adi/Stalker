@@ -15,49 +15,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
-
-const EnvironmentTable = ({ title, title_href, environmentVariables }) => {
-  return (
-    <Paper elevation={3} style={{ padding: "16px" }}>
-      <a href={title_href}>
-        <Typography variant="h6" gutterBottom>
-          {title}
-        </Typography>
-      </a>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Variable</TableCell>
-              <TableCell>Default</TableCell>
-              <TableCell>Description</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {environmentVariables.map((variable) => (
-              <TableRow key={variable.name}>
-                <TableCell>{variable.name}</TableCell>
-                <TableCell>{variable.default || "-"}</TableCell>
-                <TableCell>{variable.description || "-"}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
-  );
-};
-
 const SetSettings = () => {
   const [collapsed, setCollapsed] = useState(true);
 
@@ -157,28 +114,6 @@ const SetSettings = () => {
     </React.Fragment>
   );
 
-  const environmentVariables_Numverify = [
-    {
-      name: "NUMVERIFY_API_KEY	",
-      default: "",
-      description: "API key to authenticate to the Numverify API.",
-    },
-  ];
-
-  const environmentVariables_GoogleCS = [
-    { name: "GOOGLECSE_CX", default: "", description: "Search engine ID." },
-    {
-      name: "GOOGLE_API_KEY",
-      default: "",
-      description: "API key to authenticate to the Google API.",
-    },
-    {
-      name: "GOOGLECSE_MAX_RESULTS",
-      default: "10",
-      description: "Maximum results for each request.",
-    },
-  ];
-
   return (
     <div>
       <div>
@@ -209,17 +144,6 @@ const SetSettings = () => {
               </Button>
             </Stack>
             <br></br>
-            <EnvironmentTable
-              title="Environment Variables for Numverify"
-              title_href="https://apilayer.com/marketplace/number_verification-api"
-              environmentVariables={environmentVariables_Numverify}
-            />
-            <br></br>
-            <EnvironmentTable
-              title="Environment Variables for Google Custom Search"
-              title_href="https://console.cloud.google.com/apis/api/customsearch.googleapis.com/metrics"
-              environmentVariables={environmentVariables_GoogleCS}
-            />
           </div>
         </Collapse>
       </div>
