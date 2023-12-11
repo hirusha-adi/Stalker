@@ -1,15 +1,12 @@
 // react
-import React, { useState } from "react";
+import React from "react";
 
 // mui
 import Grid from "@mui/material/Grid";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
 import { Paper, Typography } from "@mui/material";
 
-// mui icons
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+// my components
+import CollapsibleSection from "../_shared/collapsibleSection";
 
 const FeaturesList = ({ title, items }) => {
   const generateListItems = () => {
@@ -262,25 +259,6 @@ const ScannersInformation = () => {
 };
 
 const IntroInformation = () => {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const handleToggleCollapse = () => {
-    setCollapsed(!collapsed);
-  };
-
-  const IntoTitle = () => (
-    <h2 onClick={handleToggleCollapse}>
-      What is Phoneinfoga?
-      <IconButton size="large" onClick={handleToggleCollapse}>
-        {collapsed ? (
-          <ExpandMoreIcon fontSize="inherit" />
-        ) : (
-          <ExpandLessIcon fontSize="inherit" />
-        )}
-      </IconButton>
-    </h2>
-  );
-
   const features = [
     "Check if phone number exists",
     "Gather basic information such as country, line type, and carrier",
@@ -295,60 +273,77 @@ const IntroInformation = () => {
     "Does not allow to hack a phone",
   ];
 
+  const AboutBasic = () => (
+    <div>
+      <h2>About</h2>
+      <p>
+        PhoneInfoga is one of the most advanced tools to scan international
+        phone numbers. It allows you to first gather basic information such as
+        country, area, carrier and line type, then use various techniques to try
+        to find the VoIP provider or identify the owner. It works with a
+        collection of scanners that must be configured in order for the tool to
+        be effective. PhoneInfoga doesn't automate everything, it's just there
+        to help investigating on phone numbers.
+      </p>
+    </div>
+  );
+
+  const FeaturesAntiFeatures = () => (
+    <Grid container spacing={2}>
+      <Grid
+        item
+        xs={6}
+        sx={{
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <FeaturesList title="Features" items={features} />
+      </Grid>
+      <Grid
+        item
+        xs={6}
+        sx={{
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <FeaturesList title="Anti-features" items={anti_features} />
+      </Grid>
+    </Grid>
+  );
+
+  const CreditsBasic = () => (
+    <>
+      <h3>
+        <a
+          href="https://github.com/sundowndev/phoneinfoga"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Click here
+        </a>{" "}
+        to open the Github repository
+      </h3>
+      <br></br>
+    </>
+  );
+
   return (
     <>
-      <br></br>
-      <IntoTitle />
-      <Collapse in={!collapsed}>
-        <div>
-          <h2>About</h2>
-          <p>
-            PhoneInfoga is one of the most advanced tools to scan international
-            phone numbers. It allows you to first gather basic information such
-            as country, area, carrier and line type, then use various techniques
-            to try to find the VoIP provider or identify the owner. It works
-            with a collection of scanners that must be configured in order for
-            the tool to be effective. PhoneInfoga doesn't automate everything,
-            it's just there to help investigating on phone numbers.
-          </p>
-        </div>
-        <Grid container spacing={2}>
-          <Grid
-            item
-            xs={6}
-            sx={{
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <FeaturesList title="Features" items={features} />
-          </Grid>
-          <Grid
-            item
-            xs={6}
-            sx={{
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <FeaturesList title="Anti-features" items={anti_features} />
-          </Grid>
-        </Grid>
-        <h3>
-          <a
-            href="https://github.com/sundowndev/phoneinfoga"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Click here
-          </a>{" "}
-          to open the Github repository
-        </h3>
-        <br></br>
+      <br />
+      <CollapsibleSection
+        title="What is Phoneinfoga?"
+        headerSize={2}
+        isCollapsed={false}
+      >
+        <AboutBasic />
+        <FeaturesAntiFeatures />
+        <CreditsBasic />
         <h2>Available Scanners</h2>
         <ScannersInformation />
-        <br></br>
-      </Collapse>
+        <br />
+      </CollapsibleSection>
     </>
   );
 };
