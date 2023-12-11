@@ -45,7 +45,7 @@ const IntroInformation = () => {
   return (
     <CollapsibleSection
       headerSize={2}
-      title="Advanced Options"
+      title="What is Sherlock?"
       isCollapsed={false}
     >
       <br></br>
