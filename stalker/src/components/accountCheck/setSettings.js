@@ -18,13 +18,11 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
-import Paper from "@mui/material/Paper";
 
-const PhoneInfoConfig = () => {
+const FormItems = () => {
   const [useTor, setUseTor] = useState(false);
   const [uniqueTor, setUniqueTor] = useState(false);
   const [nsfw, setNsfw] = useState(false);
-  const [useSite, setUseSite] = useState(false);
   const [proxyUrl, setProxyUrl] = useState("");
   const [timeoutValue, setTimeoutValue] = useState("");
   const [siteName, setSiteName] = useState("");
@@ -47,88 +45,86 @@ const PhoneInfoConfig = () => {
       case "nsfw":
         setNsfw(checked);
         break;
-      case "useSite":
-        setUseSite(checked);
-        break;
       default:
         break;
     }
   };
 
   return (
-    <Paper
-      style={{ backgroundColor: "#f5f5f5", padding: "16px" }}
-      elevation={3}
-    >
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={useTor}
-              onChange={handleCheckboxChange}
-              name="useTor"
+    <React.Fragment>
+      <Grid container spacing={1} justifyContent="flex-end">
+        <Grid container item spacing={4}>
+          <Grid item xs={12} md={4}>
+            <h3>Choose Options</h3>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={useTor}
+                    onChange={handleCheckboxChange}
+                    name="useTor"
+                  />
+                }
+                label="Use Tor"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={uniqueTor}
+                    onChange={handleCheckboxChange}
+                    name="uniqueTor"
+                  />
+                }
+                label="Unique Tor"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={nsfw}
+                    onChange={handleCheckboxChange}
+                    name="nsfw"
+                  />
+                }
+                label="NSFW"
+              />
+            </FormGroup>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <h3>Set Values</h3>
+            <TextField
+              id="SITE_NAME"
+              label="Site Name"
+              type="text"
+              variant="standard"
+              value={siteName}
+              onChange={(e) => setSiteName(e.target.value)}
+              fullWidth
             />
-          }
-          label="Use Tor"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={uniqueTor}
-              onChange={handleCheckboxChange}
-              name="uniqueTor"
+            <TextField
+              id="PROXY_URL"
+              label="Proxy URL"
+              variant="standard"
+              value={proxyUrl}
+              onChange={(e) => setProxyUrl(e.target.value)}
+              style={{ marginTop: "16px" }}
+              fullWidth
             />
-          }
-          label="Unique Tor"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={nsfw}
-              onChange={handleCheckboxChange}
-              name="nsfw"
+            <br />
+            <TextField
+              id="TIMEOUT"
+              label="Timeout"
+              variant="standard"
+              type="number"
+              value={timeoutValue}
+              onChange={(e) => setTimeoutValue(e.target.value)}
+              style={{ marginTop: "16px" }}
+              fullWidth
             />
-          }
-          label="NSFW"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={useSite}
-              onChange={handleCheckboxChange}
-              name="useSite"
-            />
-          }
-          label="Site"
-        />
-      </FormGroup>
-
-      <TextField
-        label="PROXY_URL"
-        type="text"
-        value={proxyUrl}
-        onChange={(e) => setProxyUrl(e.target.value)}
-        style={{ marginTop: "16px" }}
-      />
-
-      <TextField
-        label="TIMEOUT"
-        type="number"
-        value={timeoutValue}
-        onChange={(e) => setTimeoutValue(e.target.value)}
-        style={{ marginTop: "16px" }}
-      />
-
-      {useSite && (
-        <TextField
-          label="SITE_NAME"
-          type="text"
-          value={siteName}
-          onChange={(e) => setSiteName(e.target.value)}
-          style={{ marginTop: "16px" }}
-        />
-      )}
-    </Paper>
+            <br />
+          </Grid>
+        </Grid>
+      </Grid>
+    </React.Fragment>
   );
 };
 
@@ -144,7 +140,7 @@ const SetSettings = () => {
       onClick={handleToggleCollapse}
       style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
     >
-      Update Settings
+      Advanced Options
       <IconButton size="large" onClick={handleToggleCollapse}>
         {collapsed ? (
           <ExpandMoreIcon fontSize="inherit" />
@@ -155,79 +151,6 @@ const SetSettings = () => {
     </h2>
   );
 
-  const FormItems = () => (
-    <React.Fragment>
-      <>
-        <Grid container spacing={1} justifyContent="flex-end">
-          <Grid container item spacing={4}>
-            <Grid item xs={12} md={3}>
-              <h4>NUMVERIFY_API_KEY</h4>
-            </Grid>
-            <Grid item xs={12} md={7}>
-              <TextField
-                id="NUMVERIFY_API_KEY"
-                label="NUMVERIFY_API_KEY"
-                variant="standard"
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid container spacing={1} justifyContent="flex-end">
-          <Grid container item spacing={4}>
-            <Grid item xs={12} md={2}>
-              <h4>Googlecse</h4>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <h4>GOOGLECSE_CX</h4>
-            </Grid>
-            <Grid item xs={12} md={7}>
-              <TextField
-                id="GOOGLECSE_CX"
-                label="GOOGLECSE_CX"
-                variant="standard"
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid container spacing={1} justifyContent="flex-end">
-          <Grid container item spacing={4}>
-            <Grid item xs={12} md={2}></Grid>
-            <Grid item xs={12} md={3}>
-              <h4>GOOGLE_API_KEY</h4>
-            </Grid>
-            <Grid item xs={12} md={7}>
-              <TextField
-                id="GOOGLE_API_KEY"
-                label="GOOGLE_API_KEY"
-                variant="standard"
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid container spacing={1} justifyContent="flex-end">
-          <Grid container item spacing={4}>
-            <Grid item xs={12} md={2}></Grid>
-            <Grid item xs={12} md={3}>
-              <h4>GOOGLECSE_MAX_RESULTS</h4>
-            </Grid>
-            <Grid item xs={12} md={7}>
-              <TextField
-                id="GOOGLECSE_MAX_RESULTS"
-                label="GOOGLECSE_MAX_RESULTS"
-                variant="standard"
-                placeholder="defaults to: 10"
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-      </>
-    </React.Fragment>
-  );
-
   return (
     <div>
       <div>
@@ -235,7 +158,6 @@ const SetSettings = () => {
         <Collapse in={!collapsed}>
           <div>
             <FormItems />
-            <PhoneInfoConfig />
             <br />
             <Stack
               direction="row"
