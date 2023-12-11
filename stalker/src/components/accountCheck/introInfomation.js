@@ -1,35 +1,12 @@
 // react
-import React, { useState } from "react";
+import React from "react";
 
 // mui
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
 
-// mui icons
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import CollapsibleSection from "../_shared/collapsibleSection";
 
 const IntroInformation = () => {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const handleToggleCollapse = () => {
-    setCollapsed(!collapsed);
-  };
-
-  const IntoTitle = () => (
-    <h2 onClick={handleToggleCollapse}>
-      What is Sherlock?
-      <IconButton size="large" onClick={handleToggleCollapse}>
-        {collapsed ? (
-          <ExpandMoreIcon fontSize="inherit" />
-        ) : (
-          <ExpandLessIcon fontSize="inherit" />
-        )}
-      </IconButton>
-    </h2>
-  );
-
-  const ScannerNumverify = () => (
+  const SherlockIntroduction = () => (
     <>
       <p>
         Sherlock is a free and open-source tool available on GitHub. This tool
@@ -66,13 +43,14 @@ const IntroInformation = () => {
   );
 
   return (
-    <>
+    <CollapsibleSection
+      headerSize={2}
+      title="Advanced Options"
+      isCollapsed={false}
+    >
       <br></br>
-      <IntoTitle />
-      <Collapse in={!collapsed}>
-        <ScannerNumverify />
-      </Collapse>
-    </>
+      <SherlockIntroduction />
+    </CollapsibleSection>
   );
 };
 
