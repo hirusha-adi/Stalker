@@ -1,5 +1,5 @@
 // react
-import React, { useState } from "react";
+import React from "react";
 
 // mui
 import TextField from "@mui/material/TextField";
@@ -7,24 +7,20 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import SaveIcon from "@mui/icons-material/Save";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
 
 // mui icons
 import DeleteIcon from "@mui/icons-material/Delete";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
+// my components
+import CollapsibleSection from "../_shared/collapsibleSection";
 
 const EnvironmentTable = ({ title, title_href, environmentVariables }) => {
   return (
@@ -59,28 +55,6 @@ const EnvironmentTable = ({ title, title_href, environmentVariables }) => {
 };
 
 const SetSettings = () => {
-  const [collapsed, setCollapsed] = useState(true);
-
-  const handleToggleCollapse = () => {
-    setCollapsed(!collapsed);
-  };
-
-  const FormTitle = () => (
-    <h2
-      onClick={handleToggleCollapse}
-      style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
-    >
-      Update Settings
-      <IconButton size="large" onClick={handleToggleCollapse}>
-        {collapsed ? (
-          <ExpandMoreIcon fontSize="inherit" />
-        ) : (
-          <ExpandLessIcon fontSize="inherit" />
-        )}
-      </IconButton>
-    </h2>
-  );
-
   const FormItems = () => (
     <React.Fragment>
       <>
@@ -157,6 +131,26 @@ const SetSettings = () => {
     </React.Fragment>
   );
 
+  const FormActionButtons = () => (
+    <Stack
+      direction="row"
+      spacing={2}
+      sx={{
+        p: 2,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
+        Clear
+      </Button>
+      <Button variant="contained" endIcon={<SaveIcon />}>
+        Update
+      </Button>
+    </Stack>
+  );
+
   const environmentVariables_Numverify = [
     {
       name: "NUMVERIFY_API_KEY	",
@@ -182,46 +176,30 @@ const SetSettings = () => {
   return (
     <div>
       <div>
-        <FormTitle />
-        <Collapse in={!collapsed}>
+        <CollapsibleSection
+          title="What is Phoneinfoga?"
+          headerSize={2}
+          isCollapsed={true}
+        >
           <div>
             <FormItems />
             <br />
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{
-                p: 2,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                variant="outlined"
-                color="error"
-                startIcon={<DeleteIcon />}
-              >
-                Clear
-              </Button>
-              <Button variant="contained" endIcon={<SaveIcon />}>
-                Update
-              </Button>
-            </Stack>
-            <br></br>
+            <FormActionButtons />
+            <br />
+            <br />
             <EnvironmentTable
               title="Environment Variables for Numverify"
               title_href="https://apilayer.com/marketplace/number_verification-api"
               environmentVariables={environmentVariables_Numverify}
             />
-            <br></br>
+            <br />
             <EnvironmentTable
               title="Environment Variables for Google Custom Search"
               title_href="https://console.cloud.google.com/apis/api/customsearch.googleapis.com/metrics"
               environmentVariables={environmentVariables_GoogleCS}
             />
           </div>
-        </Collapse>
+        </CollapsibleSection>
       </div>
     </div>
   );
