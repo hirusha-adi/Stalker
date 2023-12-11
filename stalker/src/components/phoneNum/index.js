@@ -20,8 +20,8 @@ const phoneNum = () => {
     status: {
       error: false,
       error_desc: "",
-      show_information: false,
-      show_GoogleDorks: false,
+      show_information: true,
+      show_GoogleDorks: true,
     },
     information: {
       rawLocal: "0713395547",
@@ -36,16 +36,20 @@ const phoneNum = () => {
         { id: 2, lastName: "Hirusha", firstName: "Jon", age: 35 },
       ],
       disposableProviders: [
-        // { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
+        { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
+        { id: 6, lastName: "Targaryen", firstName: "Daenerys", age: null },
       ],
       reputation: [
-        // { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
+        { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
+        { id: 3, lastName: "Lannister", firstName: "Cersei", age: 42 },
       ],
       individuals: [
-        // { id: 1, lastName: "Hirusha", firstName: "Jon", age: 35 }
+        { id: 4, lastName: "Hirusha", firstName: "Jon", age: 35 },
+        { id: 5, lastName: "Hirusha", firstName: "Jon", age: 35 },
       ],
       general: [
-        // { id: 4, lastName: "Stark", firstName: "Arya", age: 16 }
+        { id: 8, lastName: "Stark", firstName: "Arya", age: 16 },
+        { id: 9, lastName: "Stark", firstName: "Arya", age: 16 },
       ],
     },
   };
