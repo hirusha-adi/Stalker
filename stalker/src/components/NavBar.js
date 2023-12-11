@@ -48,7 +48,12 @@ const NavBar = () => {
             />
           </a>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
             {navItems.map((item) => (
               <Button
                 key={item.name}
