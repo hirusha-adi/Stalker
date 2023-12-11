@@ -12,6 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 // my components
 import IntroInformation from "./introInfomation";
 import SetSettings from "./setSettings";
+import AvailableAccountsTable from "./listAccounts";
 import ShowSecitonHeader from "../_shared/sectionHeader";
 
 import Button from "@mui/material/Button";
@@ -19,14 +20,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Stack from "@mui/material/Stack";
 
 const AccountCheck = () => {
-  // const phoneinfogaData = {
-  //   status: {
-  //     error: false,
-  //     error_desc: "",
-  //     show_information: true,
-  //   },
-  //   accountsList: {},
-  // };
+  const dataSherlock = [
+    {
+      username: "hirusha",
+      name: "AniList",
+      url_main: "https://anilist.co/",
+      url_user: "https://anilist.co/user/hirushaadi/",
+      exists: "Claimed",
+      http_status: "http_status",
+      response_time_s: "response_time_s",
+    },
+  ];
 
   const SearchUsername = () => (
     <div style={{ textAlign: "center" }}>
@@ -86,6 +90,9 @@ const AccountCheck = () => {
 
       {/* Clear + Update Buttons */}
       <ButtonsSubmitClear />
+
+      {/* Sherlock Results */}
+      <AvailableAccountsTable title="Data Sherlock" rows={dataSherlock} />
 
       {/* About sherlock */}
       <br />
