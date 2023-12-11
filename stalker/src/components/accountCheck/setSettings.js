@@ -18,6 +18,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
+import Tooltip from '@mui/material/Tooltip';
 
 const FormItems = () => {
   const [useTor, setUseTor] = useState(false);
@@ -50,6 +51,21 @@ const FormItems = () => {
     }
   };
 
+  const detailsOnHover = {
+    useTor: `
+Make requests over Tor; increases runtime;
+requires Tor to be installed and in system path.
+    `,
+    uniqueTor: `
+Make requests over Tor with new Tor circuit after each request;
+increases runtime; requires Tor to be installed and in system
+path.
+    `,
+    nsfw: `
+Include checking of NSFW sites from default list.
+    `
+  }
+
   return (
     <React.Fragment>
       <Grid container spacing={1} justifyContent="flex-end">
@@ -57,36 +73,42 @@ const FormItems = () => {
           <Grid item xs={12} md={4}>
             <h3>Choose Options</h3>
             <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={useTor}
-                    onChange={handleCheckboxChange}
-                    name="useTor"
-                  />
-                }
-                label="Use Tor"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={uniqueTor}
-                    onChange={handleCheckboxChange}
-                    name="uniqueTor"
-                  />
-                }
-                label="Unique Tor"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={nsfw}
-                    onChange={handleCheckboxChange}
-                    name="nsfw"
-                  />
-                }
-                label="NSFW"
-              />
+              <Tooltip title={detailsOnHover.useTor}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={useTor}
+                      onChange={handleCheckboxChange}
+                      name="useTor"
+                    />
+                  }
+                  label="Use Tor"
+                />
+              </Tooltip>
+              <Tooltip title={detailsOnHover.uniqueTor}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={uniqueTor}
+                      onChange={handleCheckboxChange}
+                      name="uniqueTor"
+                    />
+                  }
+                  label="Unique Tor"
+                />
+              </Tooltip>
+              <Tooltip title={detailsOnHover.nsfw}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={nsfw}
+                      onChange={handleCheckboxChange}
+                      name="nsfw"
+                    />
+                  }
+                  label="NSFW"
+                />
+              </Tooltip>
             </FormGroup>
           </Grid>
           <Grid item xs={12} md={8}>
