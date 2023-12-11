@@ -160,7 +160,11 @@ const SetSettings = () => {
   return (
     <div>
       <div>
-        <CollapsibleSection headerSize={2} title="Advanced Options">
+        <CollapsibleSection
+          title="Advanced Options"
+          headerSize={2}
+          isCollapsed={true}
+        >
           <div>
             <FormItems />
             <br></br>
