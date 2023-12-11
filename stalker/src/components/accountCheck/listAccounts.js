@@ -3,16 +3,31 @@ import Typography from "@mui/material/Typography";
 import { DataGrid } from "@mui/x-data-grid";
 
 const columns = [
-  { field: "username", headerName: "Username", flex: 1 },
-  { field: "name", headerName: "Name", flex: 1 },
-  { field: "url_main", headerName: "Main URL", flex: 1 },
-  { field: "url_user", headerName: "User URL", flex: 1 },
+  {
+    field: "name",
+    headerName: "Site",
+    flex: 1,
+    renderCell: (params) => (
+      <a href={params.row.url_main} target="_blank" rel="noopener noreferrer">
+        {params.value}
+      </a>
+    ),
+  },
+  {
+    field: "username",
+    headerName: "Username",
+    flex: 1,
+    renderCell: (params) => (
+      <a href={params.row.url_user} target="_blank" rel="noopener noreferrer">
+        {params.value}
+      </a>
+    ),
+  },
   { field: "exists", headerName: "Exists", flex: 1 },
   { field: "http_status", headerName: "HTTP Status", flex: 1 },
   { field: "response_time_s", headerName: "Response Time (s)", flex: 1 },
 ];
 
-// const AvailableAccountsTable = ({ title, rows }) =>
 const AvailableAccountsTable = ({ title, rows }) =>
   rows.length === 0 ? null : (
     <>
