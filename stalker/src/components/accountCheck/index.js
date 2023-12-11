@@ -15,10 +15,42 @@ import SetSettings from "./setSettings";
 
 
 import Button from "@mui/material/Button";
-import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Stack from "@mui/material/Stack";
 
+const ShowSecitonHeader = () => (
+  <>
+    <br></br>
+    {/* Phoneinfoga logo */}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <img
+        src="https://user-images.githubusercontent.com/27065646/53551960-ae4dff80-3b3a-11e9-9075-cef786c69364.png"
+        alt="banner"
+        style={{ alignSelf: "center", width: "20%" }}
+      />
+      <br></br>
+    </div>
+    <br></br>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <h3>
+        Hunt down social media accounts by username across social networks
+      </h3>
+    </div>
+    <br></br>
+  </>
+);
 
 const AccountCheck = () => {
   // const phoneinfogaData = {
@@ -51,76 +83,48 @@ const AccountCheck = () => {
     </div>
   );
 
+  const ButtonsSubmitClear = () => (
+    <Stack
+      direction="row"
+      spacing={2}
+      sx={{
+        p: 2,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Button
+        variant="outlined"
+        color="error"
+        startIcon={<DeleteIcon />}
+      >
+        Clear
+      </Button>
+      <Button variant="contained" endIcon={<SearchIcon />}>
+        Search
+      </Button>
+    </Stack>
+  );
+
   return (
     <div>
-      <br></br>
+      {/* Section Header */}
+      <ShowSecitonHeader />
 
-      {/* Phoneinfoga logo */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <img
-          src="https://user-images.githubusercontent.com/27065646/53551960-ae4dff80-3b3a-11e9-9075-cef786c69364.png"
-          alt="banner"
-          style={{ alignSelf: "center", width: "20%" }}
-        />
-        <br></br>
-      </div>
-      <br></br>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <h3>
-          Hunt down social media accounts by username across social networks
-        </h3>
-      </div>
-      <br></br>
-
-      {/* Search Username */}
-
+      {/* Search Bar (also includes the search button) */}
       <SearchUsername />
-      <br />
+
+      {/* Advanced Settings */}
       <SetSettings />
 
-      {/* Buttons */}
-      <Stack
-        direction="row"
-        spacing={2}
-        sx={{
-          p: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          variant="outlined"
-          color="error"
-          startIcon={<DeleteIcon />}
-        >
-          Clear
-        </Button>
-        <Button variant="contained" endIcon={<SearchIcon />}>
-          Search
-        </Button>
-      </Stack>
-
+      {/* Clear + Update Buttons */}
+      <ButtonsSubmitClear />
 
       {/* About sherlock */}
-      <br></br>
-      <br></br>
-      <hr></hr>
+      <br /><br /><hr />
       <IntroInformation />
-      <br></br>
-      <br></br>
+      <br /><br />
     </div>
   );
 };
