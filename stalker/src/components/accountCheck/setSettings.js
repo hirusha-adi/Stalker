@@ -20,6 +20,118 @@ import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import Paper from "@mui/material/Paper";
 
+const PhoneInfoConfig = () => {
+  const [useTor, setUseTor] = useState(false);
+  const [uniqueTor, setUniqueTor] = useState(false);
+  const [nsfw, setNsfw] = useState(false);
+  const [useSite, setUseSite] = useState(false);
+  const [proxyUrl, setProxyUrl] = useState("");
+  const [timeoutValue, setTimeoutValue] = useState("");
+  const [siteName, setSiteName] = useState("");
+
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+
+    // If "Site" checkbox is unchecked, hide SITE_NAME input field
+    if (name === "useSite" && !checked) {
+      setSiteName("");
+    }
+
+    switch (name) {
+      case "useTor":
+        setUseTor(checked);
+        break;
+      case "uniqueTor":
+        setUniqueTor(checked);
+        break;
+      case "nsfw":
+        setNsfw(checked);
+        break;
+      case "useSite":
+        setUseSite(checked);
+        break;
+      default:
+        break;
+    }
+  };
+
+  return (
+    <Paper
+      style={{ backgroundColor: "#f5f5f5", padding: "16px" }}
+      elevation={3}
+    >
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={useTor}
+              onChange={handleCheckboxChange}
+              name="useTor"
+            />
+          }
+          label="Use Tor"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={uniqueTor}
+              onChange={handleCheckboxChange}
+              name="uniqueTor"
+            />
+          }
+          label="Unique Tor"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={nsfw}
+              onChange={handleCheckboxChange}
+              name="nsfw"
+            />
+          }
+          label="NSFW"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={useSite}
+              onChange={handleCheckboxChange}
+              name="useSite"
+            />
+          }
+          label="Site"
+        />
+      </FormGroup>
+
+      <TextField
+        label="PROXY_URL"
+        type="text"
+        value={proxyUrl}
+        onChange={(e) => setProxyUrl(e.target.value)}
+        style={{ marginTop: "16px" }}
+      />
+
+      <TextField
+        label="TIMEOUT"
+        type="number"
+        value={timeoutValue}
+        onChange={(e) => setTimeoutValue(e.target.value)}
+        style={{ marginTop: "16px" }}
+      />
+
+      {useSite && (
+        <TextField
+          label="SITE_NAME"
+          type="text"
+          value={siteName}
+          onChange={(e) => setSiteName(e.target.value)}
+          style={{ marginTop: "16px" }}
+        />
+      )}
+    </Paper>
+  );
+};
+
 const SetSettings = () => {
   const [collapsed, setCollapsed] = useState(true);
 
@@ -48,9 +160,6 @@ const SetSettings = () => {
       <>
         <Grid container spacing={1} justifyContent="flex-end">
           <Grid container item spacing={4}>
-            <Grid item xs={12} md={2}>
-              <h4>Numverify</h4>
-            </Grid>
             <Grid item xs={12} md={3}>
               <h4>NUMVERIFY_API_KEY</h4>
             </Grid>
@@ -126,6 +235,7 @@ const SetSettings = () => {
         <Collapse in={!collapsed}>
           <div>
             <FormItems />
+            <PhoneInfoConfig />
             <br />
             <Stack
               direction="row"
