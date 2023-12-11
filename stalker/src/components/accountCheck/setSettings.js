@@ -14,7 +14,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from "@mui/material/Tooltip";
 
 const FormItems = () => {
   const [useTor, setUseTor] = useState(false);
@@ -59,8 +59,8 @@ path.
     `,
     nsfw: `
 Include checking of NSFW sites from default list.
-    `
-  }
+    `,
+  };
 
   return (
     <React.Fragment>
