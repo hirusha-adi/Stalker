@@ -46,6 +46,7 @@ const FormItems = () => {
     }
   };
 
+  // Details to show on hover on ChooseOptions checkboxes
   const detailsOnHover = {
     useTor: `
 Make requests over Tor; increases runtime;
@@ -61,83 +62,94 @@ Include checking of NSFW sites from default list.
     `,
   };
 
+  // check boxes
+  const ChooseOptions = () => (
+    <FormGroup>
+      <Tooltip title={detailsOnHover.useTor}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={useTor}
+              onChange={handleCheckboxChange}
+              name="useTor"
+            />
+          }
+          label="Use Tor"
+        />
+      </Tooltip>
+      <Tooltip title={detailsOnHover.uniqueTor}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={uniqueTor}
+              onChange={handleCheckboxChange}
+              name="uniqueTor"
+            />
+          }
+          label="Unique Tor"
+        />
+      </Tooltip>
+      <Tooltip title={detailsOnHover.nsfw}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={nsfw}
+              onChange={handleCheckboxChange}
+              name="nsfw"
+            />
+          }
+          label="NSFW"
+        />
+      </Tooltip>
+    </FormGroup>
+  );
+
+  // input boxes
+  const SetValues = () => (
+    <>
+      <TextField
+        id="SITE_NAME"
+        label="Site Name"
+        type="text"
+        variant="standard"
+        value={siteName}
+        onChange={(e) => setSiteName(e.target.value)}
+        fullWidth
+      />
+      <TextField
+        id="PROXY_URL"
+        label="Proxy URL"
+        variant="standard"
+        value={proxyUrl}
+        onChange={(e) => setProxyUrl(e.target.value)}
+        style={{ marginTop: "16px" }}
+        fullWidth
+      />
+      <br />
+      <TextField
+        id="TIMEOUT"
+        label="Timeout"
+        variant="standard"
+        type="number"
+        value={timeoutValue}
+        onChange={(e) => setTimeoutValue(e.target.value)}
+        style={{ marginTop: "16px" }}
+        fullWidth
+      />
+    </>
+  );
+
   return (
     <React.Fragment>
       <Grid container spacing={1} justifyContent="flex-end">
         <Grid container item spacing={4}>
           <Grid item xs={12} md={4}>
             <h3>Choose Options</h3>
-            <FormGroup>
-              <Tooltip title={detailsOnHover.useTor}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={useTor}
-                      onChange={handleCheckboxChange}
-                      name="useTor"
-                    />
-                  }
-                  label="Use Tor"
-                />
-              </Tooltip>
-              <Tooltip title={detailsOnHover.uniqueTor}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={uniqueTor}
-                      onChange={handleCheckboxChange}
-                      name="uniqueTor"
-                    />
-                  }
-                  label="Unique Tor"
-                />
-              </Tooltip>
-              <Tooltip title={detailsOnHover.nsfw}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={nsfw}
-                      onChange={handleCheckboxChange}
-                      name="nsfw"
-                    />
-                  }
-                  label="NSFW"
-                />
-              </Tooltip>
-            </FormGroup>
+            <ChooseOptions />
           </Grid>
           <Grid item xs={12} md={8}>
             <h3>Set Values</h3>
-            <TextField
-              id="SITE_NAME"
-              label="Site Name"
-              type="text"
-              variant="standard"
-              value={siteName}
-              onChange={(e) => setSiteName(e.target.value)}
-              fullWidth
-            />
-            <TextField
-              id="PROXY_URL"
-              label="Proxy URL"
-              variant="standard"
-              value={proxyUrl}
-              onChange={(e) => setProxyUrl(e.target.value)}
-              style={{ marginTop: "16px" }}
-              fullWidth
-            />
-            <br />
-            <TextField
-              id="TIMEOUT"
-              label="Timeout"
-              variant="standard"
-              type="number"
-              value={timeoutValue}
-              onChange={(e) => setTimeoutValue(e.target.value)}
-              style={{ marginTop: "16px" }}
-              fullWidth
-            />
-            <br />
+            <SetValues />
           </Grid>
         </Grid>
       </Grid>
