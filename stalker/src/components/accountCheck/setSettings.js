@@ -6,15 +6,14 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
-
-// mui icons
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import Tooltip from "@mui/material/Tooltip";
+
+// mui icons
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 const FormItems = () => {
   const [useTor, setUseTor] = useState(false);
