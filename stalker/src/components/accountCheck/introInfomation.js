@@ -4,7 +4,6 @@ import React, { useState } from "react";
 // mui
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
-import { Paper, Typography } from "@mui/material";
 
 // mui icons
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -31,10 +30,7 @@ const IntroInformation = () => {
   );
 
   const ScannerNumverify = () => (
-    <Paper elevation={3} style={{ padding: "16px" }}>
-      <Typography variant="h6" gutterBottom>
-        Files
-      </Typography>
+    <>
       <p>
         Sherlock is a free and open-source tool available on GitHub. This tool
         is free you can download it from Github and can use it for free of cost.
@@ -66,7 +62,7 @@ const IntroInformation = () => {
           other social media.
         </li>
       </ol>
-    </Paper>
+    </>
   );
 
   return (
