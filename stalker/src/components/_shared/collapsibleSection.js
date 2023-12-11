@@ -8,9 +8,9 @@ const CollapsibleSection = ({
   title,
   children,
   headerSize = 2,
-  defaultCollapsed = true,
+  isCollapsed = true,
 }) => {
-  const [collapsed, setCollapsed] = useState(defaultCollapsed);
+  const [collapsed, setCollapsed] = useState(isCollapsed);
 
   const handleToggleCollapse = () => {
     setCollapsed(!collapsed);
