@@ -20,8 +20,8 @@ import AdbIcon from "@mui/icons-material/Adb";
 
 const NavBar = () => {
   const navItems = [
-    { name: "Home", link: "/" },
     { name: "PhoneInfoga", link: "/phoneinfoga" },
+    { name: "Sherlock", link: "/sherlock" },
   ];
 
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -40,11 +40,13 @@ const NavBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img
-            src="/logo-with-text.png"
-            alt="Logo"
-            style={{ height: "30px", marginRight: "10px" }}
-          />
+          <a href="/">
+            <img
+              src="/logo-with-text.png"
+              alt="Logo"
+              style={{ height: "30px", marginRight: "10px" }}
+            />
+          </a>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navItems.map((item) => (

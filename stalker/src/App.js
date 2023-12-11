@@ -11,6 +11,7 @@ import NavBar from "./components/NavBar";
 // my pages
 import Home from "./components/home/index";
 import PhoneNum from "./components/phoneNum/index";
+import AccountCheck from "./components/accountCheck/index";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/phoneinfoga" element={<PhoneNum />} />
+          <Route path="/sherlock" element={<AccountCheck />} />
         </Routes>
       </Container>
     </Router>
