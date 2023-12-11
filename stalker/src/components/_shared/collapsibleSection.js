@@ -4,16 +4,18 @@ import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
-const CollapsibleSection = ({ title, children }) => {
+const CollapsibleSection = ({ title, children, headerSize = 2 }) => {
   const [collapsed, setCollapsed] = useState(true);
 
   const handleToggleCollapse = () => {
     setCollapsed(!collapsed);
   };
 
+  const HeaderTag = `h${headerSize}`;
+
   return (
     <>
-      <h2
+      <HeaderTag
         onClick={handleToggleCollapse}
         style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
       >
@@ -25,12 +27,10 @@ const CollapsibleSection = ({ title, children }) => {
             <ExpandLessIcon fontSize="inherit" />
           )}
         </IconButton>
-      </h2>
+      </HeaderTag>
       <Collapse in={!collapsed}>
-        <div>
-          {children}
-          <br />
-        </div>
+        {children}
+        <br />
       </Collapse>
     </>
   );
