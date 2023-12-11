@@ -94,6 +94,16 @@ const phoneNum = () => {
         />
       </div>
       <br></br>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <h3>Information gathering framework for phone numbers</h3>
+      </div>
+      <br></br>
 
       {/* Search Phone Number */}
       <SearchNumber />
