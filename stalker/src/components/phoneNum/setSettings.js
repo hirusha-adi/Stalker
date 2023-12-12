@@ -177,7 +177,7 @@ const SetSettings = () => {
     <div>
       <div>
         <CollapsibleSection
-          title="What is Phoneinfoga?"
+          title="Advanced Settings"
           headerSize={2}
           isCollapsed={true}
         >
