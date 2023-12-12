@@ -103,6 +103,14 @@ const phoneNum = () => {
             >
               Phoneinfoga
             </a>
+            ,{" "}
+            <a
+              href="https://pypi.org/project/phonenumbers/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              libphonenumber
+            </a>
           </>
         }
         width="70%"
