@@ -15,7 +15,7 @@ const FeaturesList = ({ title, items }) => {
 
   return (
     <>
-      <h2>{title}</h2>
+      <h3>{title}</h3>
       <ul>{generateListItems()}</ul>
     </>
   );
@@ -275,7 +275,7 @@ const IntroInformation = () => {
 
   const AboutBasic = () => (
     <div>
-      <h2>About</h2>
+      <h2>Phoneinfoga</h2>
       <p>
         PhoneInfoga is one of the most advanced tools to scan international
         phone numbers. It allows you to first gather basic information such as
@@ -286,6 +286,26 @@ const IntroInformation = () => {
         to help investigating on phone numbers.
       </p>
     </div>
+  );
+
+  const AboutLibphonenumber = () => (
+    <>
+      <h2>libphonenumber</h2>
+      <p>
+        PhoneInfoga is one of the most advanced tools to scan international
+        phone numbers. It allows you to first gather basic information such as
+        country, area, carrier and line type, then use various techniques to try
+        to find the VoIP provider or identify the owner. It works with a
+        collection of scanners that must be configured in order for the tool to
+        be effective. PhoneInfoga doesn't automate everything, it's just there
+        to help investigating on phone numbers.
+        <br />
+        What i use here is is the{" "}
+        <a href="https://pypi.org/project/phonenumbers/">Python version</a> of
+        Google's common library for parsing, formatting, storing and validating
+        international phone numbers.
+      </p>
+    </>
   );
 
   const FeaturesAntiFeatures = () => (
@@ -336,8 +356,10 @@ const IntroInformation = () => {
         <AboutBasic />
         <FeaturesAntiFeatures />
         <CreditsBasic />
-        <h2>Available Scanners</h2>
+        <h3>Available Scanners</h3>
         <ScannersInformation />
+        <br />
+        <AboutLibphonenumber />
         <br />
       </CollapsibleSection>
     </>
