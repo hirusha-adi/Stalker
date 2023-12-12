@@ -90,7 +90,21 @@ const phoneNum = () => {
     <>
       {/* Section Header */}
       <ShowSecitonHeader
-        subtitle="Information gathering framework for phone numbers"
+        subtitle={
+          <>
+            Information gathering framework for phone numbers
+            <br />
+            <br />
+            Powered by{" "}
+            <a
+              href="https://github.com/sundowndev/phoneinfoga"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Phoneinfoga
+            </a>
+          </>
+        }
         width="70%"
         imgURL="https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/docs/images/banner.png"
       />

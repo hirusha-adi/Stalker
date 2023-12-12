@@ -332,11 +332,7 @@ const IntroInformation = () => {
   return (
     <>
       <br />
-      <CollapsibleSection
-        title="What is Phoneinfoga?"
-        headerSize={2}
-        isCollapsed={false}
-      >
+      <CollapsibleSection title="About" headerSize={2} isCollapsed={true}>
         <AboutBasic />
         <FeaturesAntiFeatures />
         <CreditsBasic />

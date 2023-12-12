@@ -20,8 +20,8 @@ import AdbIcon from "@mui/icons-material/Adb";
 
 const NavBar = () => {
   const navItems = [
-    { name: "PhoneInfoga", link: "/phoneinfoga" },
-    { name: "Sherlock", link: "/sherlock" },
+    { name: "Phone Number Lookup", link: "/phone_number" },
+    { name: "Account Lookup", link: "/account" },
   ];
 
   const settings = ["Profile", "Account", "Dashboard", "Logout"];

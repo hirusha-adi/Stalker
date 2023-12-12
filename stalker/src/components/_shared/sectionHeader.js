@@ -5,6 +5,7 @@ const ShowSectionHeader = ({ width, imgURL, subtitle }) => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    textAlign: "center",
   };
 
   return (

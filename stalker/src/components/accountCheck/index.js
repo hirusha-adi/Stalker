@@ -78,7 +78,21 @@ const AccountCheck = () => {
     <div>
       {/* Section Header */}
       <ShowSecitonHeader
-        subtitle="Hunt down social media accounts by username across social networks"
+        subtitle={
+          <>
+            Hunt down social media accounts by username across social networks
+            <br />
+            <br />
+            Powered by{" "}
+            <a
+              href="https://github.com/sherlock-project/sherlock"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Sherlock
+            </a>
+          </>
+        }
         width="20%"
         imgURL="https://user-images.githubusercontent.com/27065646/53551960-ae4dff80-3b3a-11e9-9075-cef786c69364.png"
       />

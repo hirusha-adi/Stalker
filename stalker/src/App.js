@@ -20,8 +20,8 @@ const App = () => {
       <Container maxWidth="md">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/phoneinfoga" element={<PhoneNum />} />
-          <Route path="/sherlock" element={<AccountCheck />} />
+          <Route path="/phone_number" element={<PhoneNum />} />
+          <Route path="/account" element={<AccountCheck />} />
         </Routes>
       </Container>
     </Router>
