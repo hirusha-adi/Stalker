@@ -17,7 +17,6 @@ class Phoneinfoga:
             raise PhoneinfogaNotFoundError("Error: phoneinfoga.exe not found.")
         
         self.command_output = subprocess.check_output(command, shell=True, text=True)
-        print(self.command_output)
         return self.command_output
     
     def extract_scanner_googlesearch(self, command_output: str = ""):
