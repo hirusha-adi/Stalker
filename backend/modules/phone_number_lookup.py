@@ -7,19 +7,22 @@ class Phoneinfoga:
     def __init__(self, phone_number: str = "") -> None:
         self.phone_number = phone_number
     
-    def run_command(self):
-        print("\n\n")
+    def run_command(self) -> t.Optional[str]:
+        
         phoneinfoga_bin = os.path.join('bin', 'phoneinfoga.exe')
-        print(phoneinfoga_bin)
         command = f'{phoneinfoga_bin} scan -n "{self.phone_number}"'
-        print(command)
-        print(os.path.isfile(phoneinfoga_bin))
+
+        if not os.path.isfile(phoneinfoga_bin):
+            print("Error: phoneinfoga.exe not found.")
+            return None
+        
         try:
             output = subprocess.check_output(command, shell=True, text=True)
-            print(output)
+            # print(output)
+            return output
         except subprocess.CalledProcessError as e:
             print(f"Error running the command: {e}")
-        print("\n\n")
+            return None
     
     def extract_urls(self, command_output: str) -> t.Dict[str, t.List[t.Dict[str, t.Union[int, str]]]]:
         categories = {
