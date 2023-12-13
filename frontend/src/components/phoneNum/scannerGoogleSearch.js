@@ -5,25 +5,29 @@ import React from "react";
 // mui
 import { DataGrid } from "@mui/x-data-grid";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+
+const openInNewTab = (url) => {
+  const newWindow = window.open(url, "_blank");
+  if (newWindow) newWindow.opener = null;
+};
 
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
+  { field: "id", headerName: "ID" },
+  { field: "url", headerName: "Google Dork URL", flex: 4 },
   {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 90,
-  },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    field: "openInNewTab",
+    headerName: "Open",
+    flex: 1,
+    renderCell: (params) => (
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => openInNewTab(params.row.url)}
+      >
+        Open
+      </Button>
+    ),
   },
 ];
 
@@ -52,10 +56,10 @@ const GoogleDorksTable = ({ title, rows }) =>
 const ScannerGoogleSearch = ({ data }) => {
   return (
     <>
-      <GoogleDorksTable title="Social Media" rows={data.socialMedia} />
+      <GoogleDorksTable title="Social Media" rows={data.social_media} />
       <GoogleDorksTable
         title="Disposable providers"
-        rows={data.disposableProviders}
+        rows={data.disposable_providers}
       />
       <GoogleDorksTable title="Reputation" rows={data.reputation} />
       <GoogleDorksTable title="Individuals" rows={data.individuals} />
