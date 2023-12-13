@@ -1,7 +1,7 @@
 import re
 import subprocess
 import os
-import typing as t
+from utils.errors import PhoneinfogaNotFoundError
 
 class Phoneinfoga:
     def __init__(self, phone_number: str = ""):
@@ -14,16 +14,11 @@ class Phoneinfoga:
         command = f'{phoneinfoga_bin} scan -n "{phone_number or self.phone_number}"'
 
         if not os.path.isfile(phoneinfoga_bin):
-            print("Error: phoneinfoga.exe not found.")
-            return None
+            raise PhoneinfogaNotFoundError("Error: phoneinfoga.exe not found.")
         
-        try:
-            self.command_output = subprocess.check_output(command, shell=True, text=True)
-            print(self.command_output)
-            return self.command_output
-        except subprocess.CalledProcessError as e:
-            print(f"Error running the command: {e}")
-            return None
+        self.command_output = subprocess.check_output(command, shell=True, text=True)
+        print(self.command_output)
+        return self.command_output
     
     def extract_scanner_googlesearch(self, command_output: str = ""):
         categories = {
@@ -92,34 +87,60 @@ class PhoneNumberLookup:
         self.phone_number = phone_number
         
         self.final_data = {
-        'status': {
-        'error': False,
-        'error_desc': "",
-        'show_information': True,
-        'show_GoogleDorks': True,
-      },
-    #   'information': {
-    #     'raw_local': "",
-    #     'local': "",
-    #     'e164': "",
-    #     'international': "",
-    #     'country': ""
-    #   },
-    #   'scanner_googlesearch': {
-    #         "social_media": [],
-    #         "disposable_providers": [],
-    #         "reputation": [],
-    #         "individuals": [],
-    #         "general": []
-    #     }
-    }
+            'status': {
+                'error': False,
+                'error_desc': [],
+                'show_information': True,
+                'show_scanner_googlesearch': True,
+            },
+            # 'information': {
+            #     'raw_local': "",
+            #     'local': "",
+            #     'e164': "",
+            #     'international': "",
+            #     'country': ""
+            # },
+            # 'scanner_googlesearch': {
+            #     "social_media": [],
+            #     "disposable_providers": [],
+            #     "reputation": [],
+            #     "individuals": [],
+            #     "general": []
+            # }
+        }
+        
+        self.final_data['status'] = {}
+        self.final_data['status']['error'] = False
+        self.final_data['status']['error_desc'] = []
+        
+        self.final_data['information'] = {}
+        self.final_data['scanner_googlesearch'] = {}
+        
     
     def phoneinfoga(self):
         obj = Phoneinfoga(self.phone_number)
-        obj.run_command()
-        self.final_data['scanner_googlesearch'] = obj.extract_scanner_googlesearch()
-        self.final_data['information'] = obj.extract_basic_info()
-    
+
+        self.final_data['status']['show_scanner_googlesearch'] = False
+        try:
+            obj.run_command()
+            self.final_data['scanner_googlesearch'] = obj.extract_scanner_googlesearch()
+            self.final_data['status']['show_scanner_googlesearch'] = True
+        except subprocess.CalledProcessError as e:
+            self.final_data['status']['error'] = True
+            self.final_data['status']['error_desc'].append(f'{e}')
+        except PhoneinfogaNotFoundError as e:
+            self.final_data['status']['error'] = True
+            self.final_data['status']['error_desc'].append(f'{e}')
+        
+        self.final_data['status']['show_information'] = False
+        try:
+            self.final_data['information'] = obj.extract_basic_info()
+            self.final_data['status']['show_information'] = True
+            self.final_data['status']['error_desc'].append('Not showing information from "local" scanner of Phoneinfoga')
+        except Exception as e:
+            self.final_data['status']['error'] = True
+            self.final_data['status']['error_desc'].append(f'{e}')
+
     def run(self):
         self.phoneinfoga()
         return self.final_data
