@@ -1,5 +1,5 @@
 // react
-import React from "react";
+import React, { useState } from "react";
 
 // mui
 import Grid from "@mui/material/Grid";
@@ -16,53 +16,50 @@ import IntroInformation from "./introInfomation";
 import ScannerGoogleSearch from "./scannerGoogleSearch";
 import ScannerLocal from "./scannerLocal";
 
-const phoneNum = () => {
-  const phoneinfogaData = {
+const PhoneNum = () => {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneinfogaData, setPhoneinfogaData] = useState({
     status: {
       error: false,
       error_desc: "",
       show_information: true,
-      show_GoogleDorks: true,
+      show_scanner_googlesearch: true,
     },
     information: {
-      rawLocal: "0713395547",
-      local: "071 339 5547",
-      e164: "+94713395547",
-      international: "94713395547",
-      country: "LK",
+      raw_local: "",
+      local: "",
+      e164: "",
+      international: "",
+      country: "",
     },
-    googleDorks: {
-      socialMedia: [
-        { id: 1, lastName: "Hirusha", firstName: "Jon", age: 35 },
-        { id: 2, lastName: "Hirusha", firstName: "Jon", age: 35 },
-      ],
-      disposableProviders: [
-        {
-          id: 5,
-          lastName: "Targaryen",
-          firstName: "Daenerys",
-          age: null,
-        },
-        {
-          id: 6,
-          lastName: "Targaryen",
-          firstName: "Daenerys",
-          age: null,
-        },
-      ],
-      reputation: [
-        { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-        { id: 3, lastName: "Lannister", firstName: "Cersei", age: 42 },
-      ],
-      individuals: [
-        { id: 4, lastName: "Hirusha", firstName: "Jon", age: 35 },
-        { id: 5, lastName: "Hirusha", firstName: "Jon", age: 35 },
-      ],
-      general: [
-        { id: 8, lastName: "Stark", firstName: "Arya", age: 16 },
-        { id: 9, lastName: "Stark", firstName: "Arya", age: 16 },
-      ],
+    scanner_googlesearch: {
+      social_media: [],
+      disposable_providers: [],
+      reputation: [],
+      individuals: [],
+      general: [],
     },
+  });
+
+  const handleSearch = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("PHONE_NUMBER", phoneNumber);
+
+      const response = await fetch("/phone_num", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setPhoneinfogaData(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   const SearchNumber = () => (
@@ -74,11 +71,13 @@ const phoneNum = () => {
             id="PHONE_NUMBER"
             label="Input Phone Number"
             variant="standard"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
             fullWidth
           />
         </Grid>
         <Grid item xs={1}>
-          <IconButton aria-label="delete" size="large">
+          <IconButton aria-label="delete" size="large" onClick={handleSearch}>
             <SearchIcon fontSize="inherit" />
           </IconButton>
         </Grid>
@@ -132,12 +131,12 @@ const phoneNum = () => {
       ) : null}
 
       {/* Google Dorks list */}
-      {phoneinfogaData.status.show_GoogleDorks ? (
+      {phoneinfogaData.status.show_scanner_googlesearch ? (
         <>
           <br />
           <hr />
           <h2>Google Dorks</h2>
-          <ScannerGoogleSearch data={phoneinfogaData.googleDorks} />
+          <ScannerGoogleSearch data={phoneinfogaData.scanner_googlesearch} />
         </>
       ) : null}
 
@@ -152,4 +151,4 @@ const phoneNum = () => {
   );
 };
 
-export default phoneNum;
+export default PhoneNum;
