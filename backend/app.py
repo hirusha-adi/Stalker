@@ -44,22 +44,12 @@ def phone_number_information():
     },
     googleDorks: {
       socialMedia: [
-        { id: 1, lastName: "Hirusha", firstName: "Jon", age: 35 },
-        { id: 2, lastName: "Hirusha", firstName: "Jon", age: 35 },
+        { id: 1, url: "" },
+        { id: 2, url: "" },
       ],
       disposableProviders: [
-        {
-          id: 5,
-          lastName: "Targaryen",
-          firstName: "Daenerys",
-          age: null,
-        },
-        {
-          id: 6,
-          lastName: "Targaryen",
-          firstName: "Daenerys",
-          age: null,
-        },
+        { id: 1, url: "" },
+        { id: 2, url: "" },
       ],
       reputation: [
         { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
@@ -94,3 +84,7 @@ def phone_number_information():
     }
 
     return final_data
+
+if __name__ == "__main__":
+  from modules import PhoneNumberLookup
+  obj = PhoneNumberLookup.test("+94713395547")
