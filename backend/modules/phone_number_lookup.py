@@ -85,6 +85,7 @@ class PhoneNumberLookup:
     def __init__(self, phone_number: str = None) -> None:
         self.phone_number = phone_number
         
+        """
         self.final_data = {
             'status': {
                 'error': False,
@@ -92,21 +93,24 @@ class PhoneNumberLookup:
                 'show_information': True,
                 'show_scanner_googlesearch': True,
             },
-            # 'information': {
-            #     'raw_local': "",
-            #     'local': "",
-            #     'e164': "",
-            #     'international': "",
-            #     'country': ""
-            # },
-            # 'scanner_googlesearch': {
-            #     "social_media": [],
-            #     "disposable_providers": [],
-            #     "reputation": [],
-            #     "individuals": [],
-            #     "general": []
-            # }
+            'information': {
+                'raw_local': "",
+                'local': "",
+                'e164': "",
+                'international': "",
+                'country': ""
+            },
+            'scanner_googlesearch': {
+                "social_media": [],
+                "disposable_providers": [],
+                "reputation": [],
+                "individuals": [],
+                "general": []
+            }
         }
+        """
+        
+        self.final_data = {}
         
         self.final_data['status'] = {}
         self.final_data['status']['error'] = False
