@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import jsonify
+from flask import request
 from flasgger import Swagger
 
 from modules import PhoneNumberLookup
@@ -24,10 +24,14 @@ swagger_config = {
 
 swagger = Swagger(api, config=swagger_config)
 
-@api.route('/phone_num')
+@api.route('/phone_num', methods=['POST'])
 def phone_number_information():
 
-    obj = PhoneNumberLookup("+94713395547")
-    result = obj.run()
-    # print(result)
-    return result
+    phone_number = request.form.get('PHONE_NUMBER')  
+
+    if phone_number:
+        obj = PhoneNumberLookup(phone_number)
+        result = obj.run()
+        return result
+    else:
+        return "Phone number not provided in the request.", 400
