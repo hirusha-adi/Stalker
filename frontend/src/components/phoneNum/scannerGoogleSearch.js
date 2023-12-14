@@ -14,7 +14,7 @@ const openInNewTab = (url) => {
 
 const columns = [
   { field: "id", headerName: "ID" },
-  { field: "url", headerName: "Google Dork URL", flex: 4 },
+  { field: "google_query", headerName: "Google Dork Query", flex: 4 },
   {
     field: "openInNewTab",
     headerName: "Open",
