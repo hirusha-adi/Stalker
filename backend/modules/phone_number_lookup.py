@@ -131,19 +131,19 @@ class PhoneNumberLookup:
                 'show_scanner_googlesearch': True,
             },
             'information': {
+                "is_valid_number": "True",
                 "can_be_internationally_dialed": "True",
-                "country": "",
-                "e164": "",
-                "info": "Country Code: ' National Number: ''",
-                "international": "",
                 "is_carrier_specific": "False",
                 "is_geographical_number": "False",
-                "is_valid_number": "True",
+                "info": "",
+                "country": "",
+                "e164": "",
+                "international": "",
                 "isp": "",
-                "local": ",
+                "local": "",
+                "raw_local": "",
                 "location": "",
                 "number_type": "",
-                "raw_local": "",
                 "region_code": "",
                 "timezone": ""
             },
@@ -201,7 +201,7 @@ class PhoneNumberLookup:
             return self.info_libphonenumber
         except Exception as e:
             self.final_data['status']['error'] = True
-            self.final_data['status']['error_desc'].append(f'{e}')
+            self.final_data['status']['error_desc'].append(f'Not showing information from "libphonenumber" scan: {e}')
             self.final_data['status']['show_information'] = False
     
     def merge_results(self):
