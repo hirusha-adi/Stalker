@@ -1,6 +1,8 @@
 import os
 import re
 import subprocess
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
 
 import phonenumbers as pnumb
 from phonenumbers import parse
@@ -55,6 +57,15 @@ class Phoneinfoga:
         
         self.command_output = subprocess.check_output(command, shell=True, text=True)
         return self.command_output
+
+    def get_google_query(self, google_search_url: str):
+        parsed_url = urlparse(google_search_url)
+        query_params = parse_qs(parsed_url.query)
+        
+        if 'q' in query_params:
+            return query_params['q'][0]
+        else:
+            return google_search_url
     
     def extract_scanner_googlesearch(self, command_output: str = ""):
         categories = {
@@ -86,10 +97,13 @@ class Phoneinfoga:
                 current_category = "general"
             elif line.startswith("URL:"):
                 url_match = re.search(r'URL:\s+(.*)', line)
+                url_final = url_match.group(1).strip()
+                google_query = self.get_google_query(url_final)
                 if url_match:
                     categories[current_category].append({
                         "id": len(categories[current_category]) + 1,
-                        "url": url_match.group(1).strip()
+                        "url": url_final,
+                        "google_query": google_query
                     })
 
         return categories
