@@ -26,8 +26,8 @@ const PhoneNum = () => {
     status: {
       error: false,
       error_desc: "",
-      show_information: true,
-      show_scanner_googlesearch: true,
+      show_information: false,
+      show_scanner_googlesearch: false,
     },
     information: {
       raw_local: "",
@@ -160,6 +160,15 @@ const PhoneNum = () => {
           <ScannerGoogleSearch data={phoneinfogaData.scanner_googlesearch} />
         </>
       ) : null}
+
+      {/* Before Searching and No Error */}
+      {!phoneinfogaData.status.error &&
+        !phoneinfogaData.status.show_information &&
+        !phoneinfogaData.status.show_scanner_googlesearch && (
+          <div style={{ textAlign: "center", marginTop: "50px" }}>
+            <p>Please search to show results</p>
+          </div>
+        )}
 
       {/* About phoneinfoga */}
       <br />
