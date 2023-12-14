@@ -1,0 +1,4 @@
+
+class PhoneinfogaNotFoundError(Exception):
+    pass
+
