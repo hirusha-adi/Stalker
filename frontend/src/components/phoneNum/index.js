@@ -12,6 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 // my components
 import ShowSecitonHeader from "../_shared/sectionHeader";
 import LoadingDialog from "../_shared/loadingDialog";
+import ErrorAlert from "../_shared/errorAltert";
 import SetSettings from "./setSettings";
 import IntroInformation from "./introInfomation";
 import ScannerGoogleSearch from "./scannerGoogleSearch";
@@ -23,7 +24,7 @@ const PhoneNum = () => {
   const [phoneinfogaData, setPhoneinfogaData] = useState({
     status: {
       error: false,
-      error_desc: "",
+      error_desc: [],
       show_information: false,
       show_scanner_googlesearch: false,
     },
@@ -157,6 +158,11 @@ const PhoneNum = () => {
             <p>Please search to show results</p>
           </div>
         )}
+
+      {/* If an error occured */}
+      {phoneinfogaData.status.error ? (
+        <ErrorAlert errorList={phoneinfogaData.status.error_desc} />
+      ) : null}
 
       {/* About phoneinfoga */}
       <br />
