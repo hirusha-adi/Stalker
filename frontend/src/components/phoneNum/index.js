@@ -12,7 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 // my components
 import ShowSecitonHeader from "../_shared/sectionHeader";
 import LoadingDialog from "../_shared/loadingDialog";
-import ErrorAlert from "../_shared/errorAltert";
+import AlertList from "../_shared/alertList";
 import SetSettings from "./setSettings";
 import IntroInformation from "./introInfomation";
 import ScannerGoogleSearch from "./scannerGoogleSearch";
@@ -161,7 +161,10 @@ const PhoneNum = () => {
 
       {/* If an error occured */}
       {phoneinfogaData.status.error ? (
-        <ErrorAlert errorList={phoneinfogaData.status.error_desc} />
+        <AlertList
+          severity="error"
+          itemsList={phoneinfogaData.status.error_desc}
+        />
       ) : null}
 
       {/* About phoneinfoga */}
