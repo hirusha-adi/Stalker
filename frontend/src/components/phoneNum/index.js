@@ -5,22 +5,20 @@ import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
-import CircularProgress from "@mui/material/CircularProgress";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
 
 // icons
 import SearchIcon from "@mui/icons-material/Search";
 
 // my components
 import ShowSecitonHeader from "../_shared/sectionHeader";
+import LoadingDialog from "../_shared/loadingDialog";
 import SetSettings from "./setSettings";
 import IntroInformation from "./introInfomation";
 import ScannerGoogleSearch from "./scannerGoogleSearch";
 import ScannerLocal from "./scannerLocal";
 
 const PhoneNum = () => {
-  const [loadingDialogOpen, setLoadingDialogOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [phoneinfogaData, setPhoneinfogaData] = useState({
     status: {
@@ -47,7 +45,7 @@ const PhoneNum = () => {
 
   const handleSearch = async () => {
     try {
-      setLoadingDialogOpen(true); // Open the dialog when starting the API request
+      setLoading(true);
 
       const formData = new FormData();
       formData.append("PHONE_NUMBER", phoneNumber);
@@ -66,7 +64,7 @@ const PhoneNum = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      setLoadingDialogOpen(false); // Close the dialog when API request is complete
+      setLoading(false);
     }
   };
 
@@ -125,17 +123,7 @@ const PhoneNum = () => {
       />
 
       {/* Please Wait Message */}
-      <Dialog
-        open={loadingDialogOpen}
-        aria-labelledby="loading-dialog-title"
-        disableBackdropClick
-        disableEscapeKeyDown
-      >
-        <DialogTitle id="loading-dialog-title">Please Wait</DialogTitle>
-        <div style={{ textAlign: "center", padding: "16px" }}>
-          <CircularProgress />
-        </div>
-      </Dialog>
+      <LoadingDialog open={loading} text="Please Wait" />
 
       {/* Search Phone Number */}
       <SearchNumber />
