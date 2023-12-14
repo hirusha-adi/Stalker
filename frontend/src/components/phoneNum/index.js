@@ -21,7 +21,7 @@ import ScannerLocal from "./scannerLocal";
 const PhoneNum = () => {
   const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [phoneinfogaData, setPhoneinfogaData] = useState({
+  const [phoneNumberData, setPhoneNumberData] = useState({
     status: {
       error: false,
       error_desc: [],
@@ -29,11 +29,21 @@ const PhoneNum = () => {
       show_scanner_googlesearch: false,
     },
     information: {
-      raw_local: "",
-      local: "",
+      is_valid_number: false,
+      can_be_internationally_dialed: false,
+      is_carrier_specific: false,
+      is_geographical_number: false,
+      info: "",
+      country: "",
       e164: "",
       international: "",
-      country: "",
+      isp: "",
+      local: "",
+      raw_local: "",
+      location: "",
+      number_type: "",
+      region_code: "",
+      timezone: "",
     },
     scanner_googlesearch: {
       social_media: [],
@@ -61,7 +71,7 @@ const PhoneNum = () => {
       }
 
       const data = await response.json();
-      setPhoneinfogaData(data);
+      setPhoneNumberData(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -133,37 +143,37 @@ const PhoneNum = () => {
       <SetSettings />
 
       {/* Phone Number - Basic Information */}
-      {phoneinfogaData.status.show_information ? (
+      {phoneNumberData.status.show_information ? (
         <>
           <h2>Number Information</h2>
-          <ScannerLocal dataList={phoneinfogaData.information} />
+          <ScannerLocal dataList={phoneNumberData.information} />
         </>
       ) : null}
 
       {/* Google Dorks list */}
-      {phoneinfogaData.status.show_scanner_googlesearch ? (
+      {phoneNumberData.status.show_scanner_googlesearch ? (
         <>
           <br />
           <hr />
           <h2>Google Dorks</h2>
-          <ScannerGoogleSearch data={phoneinfogaData.scanner_googlesearch} />
+          <ScannerGoogleSearch data={phoneNumberData.scanner_googlesearch} />
         </>
       ) : null}
 
       {/* Before Searching and No Error */}
-      {!phoneinfogaData.status.error &&
-        !phoneinfogaData.status.show_information &&
-        !phoneinfogaData.status.show_scanner_googlesearch && (
+      {!phoneNumberData.status.error &&
+        !phoneNumberData.status.show_information &&
+        !phoneNumberData.status.show_scanner_googlesearch && (
           <div style={{ textAlign: "center", marginTop: "50px" }}>
             <p>Please search to show results</p>
           </div>
         )}
 
       {/* If an error occured */}
-      {phoneinfogaData.status.error ? (
+      {phoneNumberData.status.error ? (
         <AlertList
           severity="error"
-          itemsList={phoneinfogaData.status.error_desc}
+          itemsList={phoneNumberData.status.error_desc}
         />
       ) : null}
 
