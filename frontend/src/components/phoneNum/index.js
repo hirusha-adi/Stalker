@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
+import CircularProgress from "@mui/material/CircularProgress";
 
 // icons
 import SearchIcon from "@mui/icons-material/Search";
@@ -17,6 +18,7 @@ import ScannerGoogleSearch from "./scannerGoogleSearch";
 import ScannerLocal from "./scannerLocal";
 
 const PhoneNum = () => {
+  const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [phoneinfogaData, setPhoneinfogaData] = useState({
     status: {
@@ -43,6 +45,8 @@ const PhoneNum = () => {
 
   const handleSearch = async () => {
     try {
+      setLoading(true); // Set loading to true when starting the API request
+
       const formData = new FormData();
       formData.append("PHONE_NUMBER", phoneNumber);
 
@@ -59,6 +63,8 @@ const PhoneNum = () => {
       setPhoneinfogaData(data);
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false); // Set loading to false when API request is complete
     }
   };
 
@@ -115,6 +121,14 @@ const PhoneNum = () => {
         width="70%"
         imgURL="https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/docs/images/banner.png"
       />
+
+      {/* Please Wait Message */}
+      {loading && (
+        <div style={{ textAlign: "center" }}>
+          <h2>Please Wait</h2>
+          <CircularProgress />
+        </div>
+      )}
 
       {/* Search Phone Number */}
       <SearchNumber />
