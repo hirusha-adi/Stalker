@@ -130,7 +130,8 @@ const PhoneNum = () => {
           </>
         }
         width="70%"
-        imgURL="https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/docs/images/banner.png"
+        imgURL="/logo-with-text.png"
+        // imgURL="https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/docs/images/banner.png"
       />
 
       {/* Please Wait Message */}
