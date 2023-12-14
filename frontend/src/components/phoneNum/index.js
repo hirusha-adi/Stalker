@@ -6,6 +6,8 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
 
 // icons
 import SearchIcon from "@mui/icons-material/Search";
@@ -18,7 +20,7 @@ import ScannerGoogleSearch from "./scannerGoogleSearch";
 import ScannerLocal from "./scannerLocal";
 
 const PhoneNum = () => {
-  const [loading, setLoading] = useState(false);
+  const [loadingDialogOpen, setLoadingDialogOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [phoneinfogaData, setPhoneinfogaData] = useState({
     status: {
@@ -45,7 +47,7 @@ const PhoneNum = () => {
 
   const handleSearch = async () => {
     try {
-      setLoading(true); // Set loading to true when starting the API request
+      setLoadingDialogOpen(true); // Open the dialog when starting the API request
 
       const formData = new FormData();
       formData.append("PHONE_NUMBER", phoneNumber);
@@ -64,7 +66,7 @@ const PhoneNum = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      setLoading(false); // Set loading to false when API request is complete
+      setLoadingDialogOpen(false); // Close the dialog when API request is complete
     }
   };
 
@@ -123,12 +125,17 @@ const PhoneNum = () => {
       />
 
       {/* Please Wait Message */}
-      {loading && (
-        <div style={{ textAlign: "center" }}>
-          <h2>Please Wait</h2>
+      <Dialog
+        open={loadingDialogOpen}
+        aria-labelledby="loading-dialog-title"
+        disableBackdropClick
+        disableEscapeKeyDown
+      >
+        <DialogTitle id="loading-dialog-title">Please Wait</DialogTitle>
+        <div style={{ textAlign: "center", padding: "16px" }}>
           <CircularProgress />
         </div>
-      )}
+      </Dialog>
 
       {/* Search Phone Number */}
       <SearchNumber />
