@@ -8,23 +8,17 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 
-const ScannerLocal = ({ data }) => {
-  const informationItems = [
-    { label: "Raw Local", value: data.rawLocal },
-    { label: "Local", value: data.local },
-    { label: "E164", value: data.e164 },
-    { label: "International", value: data.international },
-    { label: "Country", value: data.country },
-  ];
-
+const ScannerLocal = ({ dataList }) => {
   return (
     <TableContainer sx={{ marginTop: 2 }}>
       <Table>
         <TableBody>
-          {informationItems.map((item, index) => (
+          {Object.entries(dataList).map(([key, value], index) => (
             <TableRow key={index}>
-              <TableCell>{item.label}</TableCell>
-              <TableCell>{item.value}</TableCell>
+              <TableCell>{key}</TableCell>
+              <TableCell>
+                {typeof value === "boolean" ? (value ? "Yes" : "No") : value}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

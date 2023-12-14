@@ -136,7 +136,7 @@ const PhoneNum = () => {
       {phoneinfogaData.status.show_information ? (
         <>
           <h2>Number Information</h2>
-          <ScannerLocal data={phoneinfogaData.information} />
+          <ScannerLocal dataList={phoneinfogaData.information} />
         </>
       ) : null}
 
