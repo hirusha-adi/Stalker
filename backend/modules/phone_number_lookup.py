@@ -205,6 +205,9 @@ class PhoneNumberLookup:
             self.final_data['status']['show_information'] = False
     
     def merge_results(self):
+        if not self.info_libphonenumber:
+            self.libphonenumber()
+            
         for key, value in self.info_libphonenumber.items():
             if isinstance(value, bool):
                 self.final_data['information'][key] = value
