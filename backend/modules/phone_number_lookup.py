@@ -27,8 +27,6 @@ class Libphonenumber:
 
         info = {
             "info": parsing,
-            "international_format": pnumb.normalize_digits_only(parsing),
-            "national_format": pnumb.national_significant_number(parsing),
             "is_valid_number": pnumb.is_valid_number(parsing),
             "can_be_internationally_dialed": pnumb.can_be_internationally_dialled(parsing),
             "location": loc,
@@ -133,11 +131,21 @@ class PhoneNumberLookup:
                 'show_scanner_googlesearch': True,
             },
             'information': {
-                'raw_local': "",
-                'local': "",
-                'e164': "",
-                'international': "",
-                'country': ""
+                "can_be_internationally_dialed": "True",
+                "country": "",
+                "e164": "",
+                "info": "Country Code: ' National Number: ''",
+                "international": "",
+                "is_carrier_specific": "False",
+                "is_geographical_number": "False",
+                "is_valid_number": "True",
+                "isp": "",
+                "local": ",
+                "location": "",
+                "number_type": "",
+                "raw_local": "",
+                "region_code": "",
+                "timezone": ""
             },
             'scanner_googlesearch': {
                 "social_media": [],
@@ -157,6 +165,8 @@ class PhoneNumberLookup:
         
         self.final_data['information'] = {}
         self.final_data['scanner_googlesearch'] = {}
+        
+        self.info_libphonenumber = {}
         
     
     def phoneinfoga(self):
@@ -182,8 +192,28 @@ class PhoneNumberLookup:
         except Exception as e:
             self.final_data['status']['error'] = True
             self.final_data['status']['error_desc'].append(f'{e}')
+    
+    def libphonenumber(self):
+        obj = Libphonenumber(self.phone_number)
+        
+        try:
+            self.info_libphonenumber = obj.get_number_info()
+            return self.info_libphonenumber
+        except Exception as e:
+            self.final_data['status']['error'] = True
+            self.final_data['status']['error_desc'].append(f'{e}')
+            self.final_data['status']['show_information'] = False
+    
+    def merge_results(self):
+        for key, value in self.info_libphonenumber.items():
+            if isinstance(value, bool):
+                self.final_data['information'][key] = value
+            else:
+                self.final_data['information'][key] = str(value)
 
     def run(self):
         self.phoneinfoga()
+        self.libphonenumber()
+        self.merge_results()
         return self.final_data
     
