@@ -1,138 +1,42 @@
-import re
+import phonenumbers as pnumb
+from phonenumbers import parse
+from phonenumbers import geocoder
+from phonenumbers import carrier
+from phonenumbers import timezone
 
-phoneinfoga_output  = """
-Running scan for phone number +94713395547...
+class Libphonenumber:
+    def __init__(self, phone_number: str = ""):
+        self.phone_number = phone_number
 
-Results for googlesearch
-Social media:
-        URL: https://www.google.com/search?q=site%3Afacebook.com+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22
+    def get_number_info(self, phone_number: str = ""):
+        
+        num_to_use = phone_number
+        if phone_number == "":
+            num_to_use = self.phone_number
+        
+        parsing = parse(num_to_use)
+        loc = geocoder.description_for_number(parsing, "en")
+        isp = carrier.name_for_number(parsing, "en")
+        tz = timezone.time_zones_for_number(parsing)
 
-        URL: https://www.google.com/search?q=site%3Atwitter.com+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22 
+        info = {
+            "info": parsing,
+            "international_format": pnumb.normalize_digits_only(parsing),
+            "national_format": pnumb.national_significant_number(parsing),
+            "is_valid_number": pnumb.is_valid_number(parsing),
+            "can_be_internationally_dialed": pnumb.can_be_internationally_dialled(parsing),
+            "location": loc,
+            "region_code": pnumb.region_code_for_number(parsing),
+            "number_type": pnumb.number_type(parsing),
+            "is_carrier_specific": pnumb.is_carrier_specific(parsing),
+            "isp": isp,
+            "timezone": tz,
+            "is_geographical_number": pnumb.is_number_geographical(parsing),
+        }
+        
+        return info
 
-        URL: https://www.google.com/search?q=site%3Alinkedin.com+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Ainstagram.com+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22      
-
-        URL: https://www.google.com/search?q=site%3Avk.com+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22
-Disposable providers:
-        URL: https://www.google.com/search?q=site%3Ahs3x.com+intext%3A%2294713395547%22
-
-        URL: https://www.google.com/search?q=site%3Areceive-sms-now.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Asmslisten.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Asmsnumbersonline.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Afreesmscode.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Acatchsms.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Asmstibo.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Asmsreceiving.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Agetfreesmsnumber.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Asellaite.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Areceive-sms-online.info+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Areceivesmsonline.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Areceive-a-sms.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Asms-receive.net+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Areceivefreesms.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Areceive-sms.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Areceivetxt.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Afreephonenum.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Afreesmsverification.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Areceive-sms-online.com+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Asmslive.co+intext%3A%2294713395547%22+%7C+intext%3A%220713395547%22
-Reputation:
-        URL: https://www.google.com/search?q=site%3Awhosenumber.info+intext%3A%22%2B94713395547%22+intitle%3A%22who+called%22
-
-        URL: https://www.google.com/search?q=intitle%3A%22Phone+Fraud%22+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Afindwhocallsme.com+intext%3A%22%2B94713395547%22+%7C+intext%3A%2294713395547%22
-
-        URL: https://www.google.com/search?q=site%3Ayellowpages.ca+intext%3A%22%2B94713395547%22
-
-        URL: https://www.google.com/search?q=site%3Aphonenumbers.ie+intext%3A%22%2B94713395547%22
-
-        URL: https://www.google.com/search?q=site%3Awho-calledme.com+intext%3A%22%2B94713395547%22
-
-        URL: https://www.google.com/search?q=site%3Ausphonesearch.net+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Awhocalled.us+inurl%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Aquinumero.info+intext%3A%220713395547%22+%7C+intext%3A%2294713395547%22
-
-        URL: https://www.google.com/search?q=site%3Auk.popularphotolook.com+inurl%3A%220713395547%22
-Individuals:
-        URL: https://www.google.com/search?q=site%3Anuminfo.net+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22        
-
-        URL: https://www.google.com/search?q=site%3Async.me+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Awhocallsyou.de+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Apastebin.com+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22       
-
-        URL: https://www.google.com/search?q=site%3Awhycall.me+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22
-
-        URL: https://www.google.com/search?q=site%3Alocatefamily.com+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22   
-
-        URL: https://www.google.com/search?q=site%3Aspytox.com+intext%3A%220713395547%22
-General:
-        URL: https://www.google.com/search?q=intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22+%7C+intext%3A%22071+339+5547%22
-
-        URL: https://www.google.com/search?q=%28ext%3Adoc+%7C+ext%3Adocx+%7C+ext%3Aodt+%7C+ext%3Apdf+%7C+ext%3Artf+%7C+ext%3Asxw+%7C+ext%3Apsw+%7C+ext%3Appt+%7C+ext%3Apptx+%7C+ext%3Apps+%7C+ext%3Acsv+%7C+ext%3Atxt+%7C+ext%3Axls%29+intext%3A%2294713395547%22+%7C+intext%3A%22%2B94713395547%22+%7C+intext%3A%220713395547%22   
-
-Results for local
-Raw local: 0713395547
-Local: 071 339 5547
-E164: +94713395547
-International: 94713395547
-Country: LK
-
-2 scanner(s) succeeded
-"""
-
-def categorize_urls(input_string):
-    categories = {
-        "social_media": [],
-        "disposable_providers": [],
-        "reputation": [],
-        "individuals": [],
-        "general": []
-    }
-    current_category = None
-
-    lines = input_string.split('\n')
-    for line in lines:
-        if line.strip().startswith("Social media:"):
-            current_category = "social_media"
-        elif line.strip().startswith("Disposable providers:"):
-            current_category = "disposable_providers"
-        elif line.strip().startswith("Reputation:"):
-            current_category = "reputation"
-        elif line.strip().startswith("Individuals:"):
-            current_category = "individuals"
-        elif line.strip().startswith("General:"):
-            current_category = "general"
-        elif line.strip().startswith("URL:"):
-            url_match = re.search(r'URL:\s+(.*)', line)
-            if url_match:
-                categories[current_category].append(url_match.group(1).strip())
-
-    return categories
-
-result = categorize_urls(phoneinfoga_output)
-print(result)
+x = Libphonenumber("+94713395547")
+phone_info = x.get_number_info()
+for key, value in phone_info.items():
+    print(f"{key}: {value}")
