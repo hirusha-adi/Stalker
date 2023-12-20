@@ -6,6 +6,12 @@ from urllib.parse import urlparse
 
 class AccountLookup:
     def __init__(self, username):
+        """
+        Initialize an AccountLookup instance with the given username.
+
+        Parameters:
+        - username (str): The username to search for on various sites.
+        """
         self.username = username
         self.found_accounts = []
         
@@ -43,6 +49,15 @@ class AccountLookup:
         }
 
     def extract_main_url(self, input_url):
+        """
+        Extract the main URL from a given input URL.
+
+        Parameters:
+        - input_url (str): The URL to extract the main URL from.
+
+        Returns:
+        - str: The main URL.
+        """
         try:
             parsed_url = urlparse(input_url)
             main_url = f"{parsed_url.scheme}://{parsed_url.netloc}/"
@@ -51,6 +66,16 @@ class AccountLookup:
             return input_url
 
     def check_username_on_site(self, site, session):
+        """
+        Check if the given username exists on a specific site.
+
+        Parameters:
+        - site (dict): Information about the site to check, including URI, method, payload, etc.
+        - session (requests.Session): A session object for making HTTP requests.
+
+        Returns:
+        - dict or None: Information about the found account or None if not found.
+        """
         uri = site.get("uri_check")
         method = site.get("method", "GET")
         payload = site.get("post_body", {})
@@ -92,6 +117,12 @@ class AccountLookup:
         return None
 
     def run(self):
+        """
+        Run the account lookup process.
+
+        Returns:
+        - dict: Final data containing information about found accounts and status.
+        """
         wmn_data_filename = os.path.join('support', 'wmn-data.json')
         with open(wmn_data_filename, 'r', encoding='utf-8') as file:
             data = json.load(file)
@@ -105,7 +136,7 @@ class AccountLookup:
         if not found_accounts:
             print(f"Username {self.username} not found on any site.")
             self.final_data['status']['error'] = True
-            self.final_data['status']['error_desc'].append(f"Username: {self.username} not found on any site.")
+            self.final_data['status']['error_desc'].append(f"Username {self.username} not found on any site.")
             self.final_data['status']['show_accounts_custom'] = False
         else:
             self.final_data['status']['show_accounts_custom'] = True
