@@ -112,7 +112,63 @@ def phone_number_information():
 
 @api.route('/account_lookup', methods=['POST'])
 def account_lookup():
-    username = request.form.get('USERNAME') 
+    """
+    Endpoint to perform an account lookup based on the provided username.
+
+    ---
+    parameters:
+      - name: USERNAME
+        in: formData
+        type: string
+        required: true
+        description: The username to look up.
+
+    responses:
+      200:
+        description: Successful response
+        schema:
+          type: object
+          properties:
+            status:
+              type: object
+              properties:
+                error:
+                  type: boolean
+                error_desc:
+                  type: array
+                  items:
+                    type: string
+                show_accounts_custom:
+                  type: boolean
+                total_accounts:
+                  type: integer
+            found_accounts:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  username:
+                    type: string
+                  name:
+                    type: string
+                  url_main:
+                    type: string
+                  url_user:
+                    type: string
+                  exists:
+                    type: string
+                  http_status:
+                    type: string
+                  response_time_s:
+                    type: string
+      400:
+        description: Username not provided in the request.
+    """
+    
+    username = request.form.get('USERNAME')
+
     if username:
         obj = AccountLookup(username=username)
         result = obj.run()
