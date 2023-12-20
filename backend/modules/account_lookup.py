@@ -5,7 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 
 class AccountLookup:
-    def __init__(self, username) -> None:
+    def __init__(self, username):
         self.username = username
         self.found_accounts = []
         
@@ -32,22 +32,22 @@ class AccountLookup:
         }
         """
         
-        self.final_data = {}
-        
-        self.final_data['status'] = {}
-        self.final_data['status']['error'] = False 
-        self.final_data['status']['error_desc'] = []
-        self.final_data['status']['show_accounts_custom'] = True
-        self.final_data['status']['total_accounts'] = 0
-        
-        self.final_data['found_accounts'] = []
+        self.final_data = {
+            'status': {
+                'error': False,
+                'error_desc': [],
+                'show_accounts_custom': True,
+                'total_accounts': 0,
+            },
+            'found_accounts': [],
+        }
 
     def extract_main_url(self, input_url):
         try:
             parsed_url = urlparse(input_url)
             main_url = f"{parsed_url.scheme}://{parsed_url.netloc}/"
             return main_url
-        except:
+        except Exception:
             return input_url
 
     def check_username_on_site(self, site, session):
@@ -103,30 +103,17 @@ class AccountLookup:
         found_accounts = [account_info for account_info in results if account_info is not None]
 
         if not found_accounts:
-            # update errors
             print(f"Username {self.username} not found on any site.")
             self.final_data['status']['error'] = True
             self.final_data['status']['error_desc'].append(f"Username: {self.username} not found on any site.")
-            
-            # hide custom accounts search
             self.final_data['status']['show_accounts_custom'] = False
-            
-            return self.final_data
-        
         else:
-            # show custom accounts search
             self.final_data['status']['show_accounts_custom'] = True
-            
-            # set found accounts
             self.final_data['found_accounts'] = found_accounts
-            
-            # show total number of accounts
             self.final_data['status']['total_accounts'] = len(found_accounts)
             
             print("\nFound Accounts:")
             for account_info in found_accounts:
                 print(account_info)
-            
-            
-                
-            return self.final_data
+
+        return self.final_data
