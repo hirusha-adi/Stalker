@@ -1,9 +1,9 @@
 from flask import Flask
 from flask import request
 from flasgger import Swagger
-from flasgger import swag_from
 
 from modules import PhoneNumberLookup
+from modules import AccountLookup
 
 api = Flask(__name__)
 swagger_config = {
@@ -31,7 +31,6 @@ api.config['SWAGGER'] = {
 swagger = Swagger(api, config=swagger_config)
 
 @api.route('/phone_num', methods=['POST'])
-
 def phone_number_information():
     """
     Endpoint to get information about a phone number.
@@ -110,3 +109,13 @@ def phone_number_information():
         return result
     else:
         return "Phone number not provided in the request.", 400
+
+@api.route('/account_lookup', methods=['POST'])
+def account_lookup():
+    username = request.form.get('USERNAME') 
+    if username:
+        obj = AccountLookup(username=username)
+        result = obj.run()
+        return result
+    else:
+        return "Username not provided in the request.", 400
