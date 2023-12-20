@@ -170,4 +170,5 @@ cython_debug/
 .vscode/
 bin/
 phoneinfoga.exe
-
+wmn-data.json
+support/
