@@ -49,7 +49,7 @@ class Phoneinfoga:
     
     def run_command(self, phone_number: str = ""):
         
-        phoneinfoga_bin = os.path.join('bin', 'phoneinfoga.exe')
+        phoneinfoga_bin = os.path.join('support', 'phoneinfoga.exe')
         command = f'{phoneinfoga_bin} scan -n "{phone_number or self.phone_number}"'
 
         if not os.path.isfile(phoneinfoga_bin):
