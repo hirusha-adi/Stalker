@@ -14,9 +14,25 @@ from utils.errors import PhoneinfogaNotFoundError
 
 class Libphonenumber:
     def __init__(self, phone_number: str = ""):
+        """
+        Initialize Libphonenumber instance with an optional phone number.
+
+        Parameters:
+        - phone_number (str): The phone number to analyze.
+        """
+        
         self.phone_number = phone_number
 
     def get_number_info(self, phone_number: str = ""):
+        """
+        Get information about a phone number using the libphonenumber library.
+
+        Parameters:
+        - phone_number (str): The phone number to analyze.
+
+        Returns:
+        - dict: Information about the phone number.
+        """
         
         num_to_use = phone_number
         if phone_number == "":
@@ -44,10 +60,26 @@ class Libphonenumber:
 
 class Phoneinfoga:
     def __init__(self, phone_number: str = ""):
+        """
+        Initialize Phoneinfoga instance with an optional phone number.
+
+        Parameters:
+        - phone_number (str): The phone number to perform scans on.
+        """
+        
         self.phone_number = phone_number
         self.command_output = ""
     
     def run_command(self, phone_number: str = ""):
+        """
+        Run the Phoneinfoga command to perform scans on a phone number.
+
+        Parameters:
+        - phone_number (str): The phone number to perform scans on.
+
+        Returns:
+        - str: The output of the Phoneinfoga command.
+        """
         
         phoneinfoga_bin = os.path.join('support', 'phoneinfoga.exe')
         command = f'{phoneinfoga_bin} scan -n "{phone_number or self.phone_number}"'
@@ -59,6 +91,16 @@ class Phoneinfoga:
         return self.command_output
 
     def get_google_query(self, google_search_url: str):
+        """
+        Extract the Google query from a Google search URL.
+
+        Parameters:
+        - google_search_url (str): The Google search URL.
+
+        Returns:
+        - str: The extracted Google query.
+        """
+        
         parsed_url = urlparse(google_search_url)
         query_params = parse_qs(parsed_url.query)
         
@@ -68,6 +110,16 @@ class Phoneinfoga:
             return google_search_url
     
     def extract_scanner_googlesearch(self, command_output: str = ""):
+        """
+        Extract information from the output of Phoneinfoga's Google search scanner.
+
+        Parameters:
+        - command_output (str): The output of the Phoneinfoga command.
+
+        Returns:
+        - dict: Categorized information from the Google search scanner.
+        """
+        
         categories = {
             "social_media": [],
             "disposable_providers": [],
@@ -109,6 +161,16 @@ class Phoneinfoga:
         return categories
     
     def extract_basic_info(self, command_output: str = ""):
+        """
+        Extract basic information from the output of Phoneinfoga.
+
+        Parameters:
+        - command_output (str): The output of the Phoneinfoga command.
+
+        Returns:
+        - dict: Basic information about the phone number.
+        """
+        
         basic_info = {}
         
         output_to_use = command_output
@@ -133,7 +195,14 @@ class Phoneinfoga:
         return basic_info
 
 class PhoneNumberLookup:
-    def __init__(self, phone_number: str = None) -> None:
+    def __init__(self, phone_number: str = None):
+        """
+        Initialize PhoneNumberLookup instance with an optional phone number.
+
+        Parameters:
+        - phone_number (str): The phone number to perform lookups on.
+        """
+        
         self.phone_number = phone_number
         
         """
@@ -171,19 +240,25 @@ class PhoneNumberLookup:
         }
         """
         
-        self.final_data = {}
-        
-        self.final_data['status'] = {}
-        self.final_data['status']['error'] = False
-        self.final_data['status']['error_desc'] = []
-        
-        self.final_data['information'] = {}
-        self.final_data['scanner_googlesearch'] = {}
-        
+        self.phone_number = phone_number
+        self.final_data = {
+            'status': {
+                'error': False,
+                'error_desc': [],
+                'show_information': True,
+                'show_scanner_googlesearch': True,
+            },
+            'information': {},
+            'scanner_googlesearch': {},
+        }
         self.info_libphonenumber = {}
         
     
     def phoneinfoga(self):
+        """
+        Run Phoneinfoga scans and populate the final_data dictionary.
+        """
+        
         obj = Phoneinfoga(self.phone_number)
 
         self.final_data['status']['show_scanner_googlesearch'] = False
@@ -208,6 +283,10 @@ class PhoneNumberLookup:
             self.final_data['status']['error_desc'].append(f'{e}')
     
     def libphonenumber(self):
+        """
+        Run Libphonenumber scan and populate the info_libphonenumber dictionary.
+        """
+        
         obj = Libphonenumber(self.phone_number)
         
         try:
@@ -219,6 +298,10 @@ class PhoneNumberLookup:
             self.final_data['status']['show_information'] = False
     
     def merge_results(self):
+        """
+        Merge results from Phoneinfoga and Libphonenumber scans into final_data.
+        """
+        
         if not self.info_libphonenumber:
             self.libphonenumber()
             
@@ -229,6 +312,12 @@ class PhoneNumberLookup:
                 self.final_data['information'][key] = str(value)
 
     def run(self):
+        """
+        Run the complete phone number lookup process.
+
+        Returns:
+        - dict: Final data containing information from Phoneinfoga and Libphonenumber scans.
+        """
         self.phoneinfoga()
         self.libphonenumber()
         self.merge_results()
