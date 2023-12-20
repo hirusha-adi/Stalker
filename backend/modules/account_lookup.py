@@ -1,10 +1,12 @@
 import requests
 import json
+import os
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 
 class AccountLookup:
-    def __init__(self) -> None:
+    def __init__(self, username) -> None:
+        self.username = username
         self.found_accounts = []
     
     def extract_main_url(self, input_url):
@@ -15,7 +17,7 @@ class AccountLookup:
         except:
             return input_url 
     
-    def check_username_on_site(self, site, username, session):
+    def check_username_on_site(self, site, session):
         uri = site.get("uri_check")
         method = site.get("method", "GET")
         payload = site.get("post_body", {})
@@ -23,7 +25,7 @@ class AccountLookup:
 
         try:
             if method == "GET":
-                final_url = uri.format(account=username)
+                final_url = uri.format(account=self.username)
                 response = session.get(final_url, headers=headers, timeout=10)
             elif method == "POST":
                 final_url = uri
@@ -34,7 +36,7 @@ class AccountLookup:
             if response.status_code == site["e_code"] and site["e_string"] in response.text:
                 account_info = {
                     "id": len(self.found_accounts) + 1,
-                    "username": username,
+                    "username": self.username,
                     "name": site.get("name"),
                     "url_main": self.extract_main_url(final_url),
                     "url_user": final_url,
@@ -52,16 +54,17 @@ class AccountLookup:
 
         return False
 
-    def check_username(self, username):
-        with open('wmn-data.json', 'r', encoding='utf-8') as file:
+    def check_username(self):
+        wmn_data_filename = os.path.join('support', 'wmn-data.json')
+        with open(wmn_data_filename, 'r', encoding='utf-8') as file:
             data = json.load(file)
 
         with ThreadPoolExecutor() as executor, requests.Session() as session:
-            futures = [executor.submit(self.check_username_on_site, site, username, session) for site in data["sites"]]
+            futures = [executor.submit(self.check_username_on_site, site, self.username, session) for site in data["sites"]]
             results = [future.result() for future in futures]
 
         if not any(results):
-            print(f"Username {username} not found on any site.")
+            print(f"Username {self.username} not found on any site.")
         else:
             print("\nFound Accounts:")
             for account_info in self.found_accounts:
