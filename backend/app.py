@@ -175,3 +175,6 @@ def account_lookup():
         return result
     else:
         return "Username not provided in the request.", 400
+
+if __name__ == "__main__":
+    api.run(debug=True)
