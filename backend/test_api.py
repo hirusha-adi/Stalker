@@ -2,7 +2,7 @@ import requests
 from urllib.parse import urlencode, quote_plus
 
 class TestAPI:
-    base_url = "http://127.0.0.1:5000"
+    base_url = "http://127.0.0.1:5001"
 
     def check_account_lookup(self, USERNAME=None):
         url = f"{self.base_url}/account_lookup"
@@ -47,7 +47,7 @@ class TestAPI:
 
 def main():
     tester = TestAPI()
-    tester.check_account_lookup()
+    # tester.check_account_lookup()
     tester.check_phone_number_information()
 
 if __name__ == '__main__':
