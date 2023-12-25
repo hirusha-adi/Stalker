@@ -11,9 +11,7 @@ from phonenumbers import carrier
 from phonenumbers import timezone
 
 from utils.errors import PhoneinfogaNotFoundError
-from utils.log import CustomLogger
-
-log = CustomLogger("PhoneNumberLookup")
+from utils.log import debug
 
 def sanitize(phone_number):
     """
@@ -26,7 +24,7 @@ def sanitize(phone_number):
     - str: Validated and sanitized phone number.
     """
     sanitized = re.sub(r'[^0-9+]', '', phone_number)
-    log.debug("Hirusha")
+    debug("Hirusha")
     return sanitized
 
 class Libphonenumber:
