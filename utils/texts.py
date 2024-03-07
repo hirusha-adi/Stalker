@@ -15,7 +15,7 @@ def help_home() -> None:
     print(
         """
 Available modules:
-    accounts
+    usernames
 
 Available commands:
     exit
