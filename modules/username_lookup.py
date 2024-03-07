@@ -46,10 +46,10 @@ def check_username_on_site(
         response.raise_for_status()
 
         if response.status_code == site["e_code"] and site["e_string"] in response.text:
-            new_id = final_data["status"]["total"] + 1
+            final_data["status"]["total"] += 1
             final_data["accounts"].append(
                 {
-                    "id": new_id,
+                    "id": final_data["status"]["total"],
                     "username": username,
                     "name": site.get("name"),
                     "url_main": extract_main_url(final_url),
@@ -62,7 +62,7 @@ def check_username_on_site(
             print(
                 f"""
 Found {username} on {site.get("name")}:
-    ID: {new_id}
+    ID: {final_data["status"]["total"]}
     Username: {username}
     Platform Name: {site.get("name")}
     Platform URL: {extract_main_url(final_url)}
@@ -183,7 +183,7 @@ def start() -> None:
             break
         elif inp == "quit":
             print("Quitting!")
-            sys.exit("")
+            sys.exit()
         else:
             pass
     return
