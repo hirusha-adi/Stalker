@@ -3,6 +3,7 @@ import sys
 import json
 import typing as t
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
 
 import requests
 from tabulate import tabulate
@@ -22,13 +23,12 @@ def extract_main_url(input_url: str) -> str:
 
 
 def check_username_on_site(
-    site: dict, username: str, session: requests.sessions.Session
+    site: dict, username: str, session: requests.sessions.Session, final_data: dict
 ) -> bool:
     uri: str = site.get("uri_check", "")
     method: str = site.get("method", "GET")
     payload: t.Union[str, dict] = site.get("post_body", {})
     headers: dict = site.get("headers", {})
-    found_accounts = []
 
     if uri == "":
         return False
@@ -46,17 +46,18 @@ def check_username_on_site(
         response.raise_for_status()
 
         if response.status_code == site["e_code"] and site["e_string"] in response.text:
-            account_info = {
-                "id": len(found_accounts) + 1,
-                "username": username,
-                "name": site.get("name"),
-                "url_main": extract_main_url(final_url),
-                "url_user": final_url,
-                "exists": "Claimed",
-                "http_status": response.status_code,
-                "response_time_s": f"",
-            }
-            found_accounts.append(account_info)
+            final_data["accounts"].append(
+                {
+                    "id": final_data["status"]["total"] + 1,
+                    "username": username,
+                    "name": site.get("name"),
+                    "url_main": extract_main_url(final_url),
+                    "url_user": final_url,
+                    "exists": "Claimed",
+                    "http_status": response.status_code,
+                    "response_time_s": f"",
+                }
+            )
             print(
                 f"""
 Found {username} on {site.get("name")}:
@@ -124,7 +125,7 @@ def start() -> None:
         elif inp.startswith("lookup"):
             username = inp[7:]
             final_data = {
-                "status": {"name": username, "total": 0, "time": 0},
+                "status": {"name": username, "total": 0, "time": f"{datetime.now()}"},
                 "accounts": [],
             }
             support_file = os.path.join(os.getcwd(), "support", "wmn-data.json")
@@ -150,7 +151,9 @@ def start() -> None:
 
             with ThreadPoolExecutor() as executor, requests.Session() as session:
                 futures = [
-                    executor.submit(check_username_on_site, site, username, session)
+                    executor.submit(
+                        check_username_on_site, site, username, session, final_data
+                    )
                     for site in data["sites"]
                 ]
                 results = [future.result() for future in futures]
@@ -158,8 +161,15 @@ def start() -> None:
             if not any(results):
                 print(f"Username {username} not found on any site.")
             else:
-                # SAVE HISTORY JSON
-                print(f"Found accounts have been saved temporarily in:")
+                file_path = os.path.join(Vars.username_folder_path, f"{username}.json")
+                try:
+                    with open(file_path, "w") as json_file:
+                        json.dump(final_data, json_file, indent=4)
+                    print(
+                        f"Found accounts have been saved temporarily in: {file_path} for the history functionality."
+                    )
+                except Exception as e:
+                    print(f"Error occurred while saving JSON data: {e}")
 
         elif inp == "exit":
             break
