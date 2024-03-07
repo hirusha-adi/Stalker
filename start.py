@@ -9,7 +9,7 @@ if os.name == "nt":
 
 texts.banner_home()
 while True:
-    i_main = input(">> ").strip()
+    i_main: str = input(">> ").strip()
 
     if i_main == "help":
         texts.help_home()

@@ -1,4 +1,4 @@
-def banner_home():
+def banner_home() -> None:
     print(
         """
  ╔═╗┌┬┐┌─┐┬  ┬┌─┌─┐┬─┐
@@ -11,7 +11,7 @@ Type help for more info
     )
 
 
-def help_home():
+def help_home() -> None:
     print(
         """
 Available modules:
@@ -26,7 +26,7 @@ Global commands:
     )
 
 
-def help_usernames():
+def help_usernames() -> None:
     print(
         """
 Available commands:
