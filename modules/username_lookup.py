@@ -46,9 +46,10 @@ def check_username_on_site(
         response.raise_for_status()
 
         if response.status_code == site["e_code"] and site["e_string"] in response.text:
+            new_id = final_data["status"]["total"] + 1
             final_data["accounts"].append(
                 {
-                    "id": final_data["status"]["total"] + 1,
+                    "id": new_id,
                     "username": username,
                     "name": site.get("name"),
                     "url_main": extract_main_url(final_url),
@@ -61,7 +62,7 @@ def check_username_on_site(
             print(
                 f"""
 Found {username} on {site.get("name")}:
-    ID: ...
+    ID: {new_id}
     Username: {username}
     Platform Name: {site.get("name")}
     Platform URL: {extract_main_url(final_url)}
@@ -108,7 +109,11 @@ def start() -> None:
                 print("No history!")
             else:
                 for filename in files:
-                    with open(filename, "r", encoding="utf-8") as file:
+                    with open(
+                        os.path.join(Vars.username_folder_path, filename),
+                        "r",
+                        encoding="utf-8",
+                    ) as file:
                         Vars.history.append(json.load(file))
                 data = []
                 for dat in Vars.history:
@@ -129,22 +134,25 @@ def start() -> None:
                 "accounts": [],
             }
             support_file = os.path.join(os.getcwd(), "support", "wmn-data.json")
-            try:
-                response = requests.get(
-                    "https://raw.githubusercontent.com/WebBreacher/WhatsMyName/main/wmn-data.json"
-                )
-                response.raise_for_status()
-            except requests.exceptions.HTTPError as http_err:
-                print(f"HTTP error occurred: {http_err}")
-            except requests.exceptions.RequestException as req_err:
-                print(f"Request exception occurred: {req_err}")
-            else:
-                if response.status_code == 200:
-                    with open(support_file, "wb") as f:
-                        f.write(response.content)
-                    print(f"File downloaded and saved to: {support_file}")
+            if not os.path.isfile(support_file):
+                try:
+                    response = requests.get(
+                        "https://raw.githubusercontent.com/WebBreacher/WhatsMyName/main/wmn-data.json"
+                    )
+                    response.raise_for_status()
+                except requests.exceptions.HTTPError as http_err:
+                    print(f"HTTP error occurred: {http_err}")
+                except requests.exceptions.RequestException as req_err:
+                    print(f"Request exception occurred: {req_err}")
                 else:
-                    print(f"Unexpected response status code: {response.status_code}")
+                    if response.status_code == 200:
+                        with open(support_file, "wb") as f:
+                            f.write(response.content)
+                        print(f"File downloaded and saved to: {support_file}")
+                    else:
+                        print(
+                            f"Unexpected response status code: {response.status_code}"
+                        )
 
             with open(support_file, "r", encoding="utf-8") as file:
                 data = json.load(file)
