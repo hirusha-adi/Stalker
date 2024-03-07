@@ -1,1 +1,1 @@
-from . import banners
+from . import texts
