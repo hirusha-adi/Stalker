@@ -1,16 +1,25 @@
 import os
 import sys
-from utils import banners
+
+import modules
+from utils import texts
 
 if os.name == "nt":
     sys.exit("Not supported on windows!")
 
-banners.home()
+texts.banner_home()
 while True:
     i_main = input(">> ").strip()
+
     if i_main == "help":
-        print("""username lookup""")
-    elif i_main == "username lookup":
-        print()
+        texts.help_home()
+
+    elif i_main == "usernames":
+        modules.username_lookup.start()
+
+    elif i_main in ["exit", "quit"]:
+        print("Quitting!")
+        sys.exit()
+
     else:
         print("[!] Command not found!")
