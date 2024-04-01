@@ -92,7 +92,7 @@ def start() -> None:
         if inp == "help":
             texts.help_usernames()
 
-        elif inp == "history":
+        elif inp in ("history", "history list"):
             files = os.listdir(Vars.username_folder_path)
             if len(files) == 0:
                 print("No history!")
@@ -113,8 +113,37 @@ def start() -> None:
                             dat["status"]["time"],
                         ]
                     )
-                headers = ["Name", "Total", "Time"]
-                print(tabulate(data, headers=headers, tablefmt="grid"))
+                print(
+                    tabulate(data, headers=["Name", "Total", "Time"], tablefmt="grid")
+                )
+
+        elif inp.startswith("history load"):
+            username = inp.split("load")[-1].strip()
+            print(f"Results for: {username}")
+            i = 0
+            for his in Vars.history:
+                if his["status"]["name"] == username:
+                    i += 1
+                    print(f"Displaying result {i}.\n")
+                    print(
+                        tabulate(
+                            data, headers=["Name", "Total", "Time"], tablefmt="grid"
+                        )
+                    )
+                    for acc in his["accounts"]:
+                        print(
+                            f"""
+Found {username} on  {acc['name']}:
+    ID: {acc['id']}
+    Username: {acc['username']}
+    Platform Name: {acc['name']}
+    Platform URL: {acc['url_main']}
+    User Profile URL: {acc['url_user']}
+    Exists: {acc['exists']}
+    HTTP Status: {acc['http_status']}
+    Response Time (s): {acc['response_time_s']}
+                          """
+                        )
 
         elif inp.startswith("lookup"):
             username = inp[7:]
