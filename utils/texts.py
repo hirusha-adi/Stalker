@@ -35,5 +35,6 @@ Available commands:
     list <username>
     save <username> [txt/json/csv]
     history
+    history show <username> [i=interactive]
         """
     )
