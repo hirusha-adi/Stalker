@@ -5,6 +5,7 @@ import typing as t
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 
+from matplotlib import is_interactive
 import requests
 from tabulate import tabulate
 from urllib.parse import urlparse
@@ -93,12 +94,24 @@ def start() -> None:
             texts.help_usernames()
 
         elif inp.startswith("history show"):
+            is_interactive = False
             username = inp.split("show")[-1].strip()
+            try:
+                last_arg = username.split(" ")
+                if last_arg[-1] in ("i", "interactive"):
+                    is_interactive = True
+                    username = last_arg[0]
+            except IndexError:
+                pass
+
             print(f"Results for: {username}")
             i = 0
             for his in Vars.history:
                 print(
-                    his["status"]["name"], username, (his["status"]["name"] == username)
+                    his["status"]["name"],
+                    username,
+                    (his["status"]["name"] == username),
+                    is_interactive,
                 )
                 if his["status"]["name"] == username:
                     i += 1
@@ -108,6 +121,8 @@ def start() -> None:
                             data, headers=["Name", "Total", "Time"], tablefmt="grid"
                         )
                     )
+                    if is_interactive:
+                        print("\nPress [ENTER] to go to next account!")
                     for acc in his["accounts"]:
                         print(
                             f"""
@@ -119,9 +134,10 @@ Found {username} on  {acc['name']}:
     User Profile URL: {acc['url_user']}
     Exists: {acc['exists']}
     HTTP Status: {acc['http_status']}
-    Response Time (s): {acc['response_time_s']}
-                          """
+    Response Time (s): {acc['response_time_s']}"""
                         )
+                        if is_interactive:
+                            input("")
 
         elif inp == "history":
             files = os.listdir(Vars.username_folder_path)
