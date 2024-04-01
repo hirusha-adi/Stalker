@@ -11,6 +11,7 @@ from urllib.parse import urlparse
 from urllib.parse import ParseResult
 
 from utils import texts
+from utils.vars import Vars
 
 
 def extract_main_url(input_url: str) -> str:
@@ -82,18 +83,6 @@ Found {username} on {site.get("name")}:
         print(f"Error occurred for {site['name']} - {req_err}")
 
     return False
-
-
-class Vars:
-    username_folder_path: t.Union[str, os.PathLike] = os.path.join(
-        os.getcwd(), "history", "usernames"
-    )
-    history: t.List[dict] = []
-
-
-def init() -> None:
-    if not os.path.isdir(Vars.username_folder_path):
-        os.makedirs(Vars.username_folder_path)
 
 
 def start() -> None:
