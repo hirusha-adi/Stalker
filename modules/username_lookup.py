@@ -126,7 +126,7 @@ def start() -> None:
                     for acc in his["accounts"]:
                         print(
                             f"""
-Found {username} on  {acc['name']}:
+Found {username} on {acc['name']}:
     ID: {acc['id']}
     Username: {acc['username']}
     Platform Name: {acc['name']}
