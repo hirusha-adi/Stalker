@@ -1,25 +1,19 @@
 import os
 import sys
 
-import modules
-from utils import texts
+args =  sys.argv[:]
 
-if os.name == "nt":
-    sys.exit("Not supported on windows!")
+try:
+    module = args[1]
+except IndexError:
+    print("[!!] No module selected!")
+    # display_help()
+    sys.exit()
 
-texts.banner_home()
-while True:
-    i_main: str = input(">> ").strip()
+try:
+    args_to_pass = args[2:]
+    if len(args_to_pass) == 0:
+        raise IndexError
+except IndexError:
+    print("[+] No arguments passed, starting interactive mode")
 
-    if i_main == "help":
-        texts.help_home()
-
-    elif i_main == "usernames":
-        modules.username_lookup.start()
-
-    elif i_main in ["exit", "quit"]:
-        print("Quitting!")
-        sys.exit()
-
-    else:
-        print("[!] Command not found!")
