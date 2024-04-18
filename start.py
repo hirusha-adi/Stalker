@@ -1,6 +1,6 @@
-import os
 import sys
 
+from utils import help
 from modules import username
 
 args =  sys.argv[:]
@@ -25,5 +25,8 @@ modules = module.split("/")
 main_module = modules[0]
 sub_modules = modules[1:]
 
-if main_module == "username":
+if main_module == "help":
+    help.main_help()
+    
+elif main_module == "username":
     username.handler(sub_modules=sub_modules, args=args_to_pass, is_interactive=is_interactive)
