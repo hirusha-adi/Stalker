@@ -1,5 +1,5 @@
-from utils import google_search
+from utils import search_google
 
 def start(username: str):
-    google_search(f'site:amazon.com "{username}"')
+    search_google(f'site:amazon.com "{username}"')
         
