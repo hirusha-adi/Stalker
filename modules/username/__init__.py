@@ -3,8 +3,10 @@ username
 --------
 
 Sub-modules ->
-    username/lookup - Username search engine
-    username/directory - Names directory
+    username/search/lookup - Username search engine
+    username/search/directory - Names directory
+    username/specific/amazon - Amazon username search
+    username/specific/github - Github username search
 """
 
 from ._handle import handler
