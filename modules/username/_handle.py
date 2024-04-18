@@ -1,5 +1,7 @@
 from .search import lookup
 from .search import directory
+from .specific_sites import amazon
+from .specific_sites import github
 
 def handler(sub_modules, args, is_interactive=True):
     
@@ -24,4 +26,19 @@ def handler(sub_modules, args, is_interactive=True):
         print(f"[*] Using name as {first_or_last} name")
         directory.start(name=name, first_or_last=first_or_last)
         
+    elif sub_modules_str == "specific_sites/amazon":
+        if is_interactive:
+            username = input("[?] Username: ")
+        else:
+            username = args[0]
+        print(f"[*] Using username: {username}")
+        amazon.start(username=username)
+    
+    elif sub_modules_str == "specific_sites/github":
+        if is_interactive:
+            username = input("[?] Username: ")
+        else:
+            username = args[0]
+        print(f"[*] Using username: {username}")
+        github.start(username=username)
         
