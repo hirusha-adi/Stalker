@@ -8,3 +8,4 @@ def search_google(query: str) -> None:
     URL: {item.description}
     Description: {item.url}
                 """)
+            
