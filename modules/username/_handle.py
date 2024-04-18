@@ -1,11 +1,11 @@
-from . import lookup
-from . import directory
+from .search import lookup
+from .search import directory
 
 def handler(sub_modules, args, is_interactive=True):
     
     sub_modules_str = "/".join(sub_modules)
     
-    if sub_modules_str == "lookup":
+    if sub_modules_str == "search/lookup":
         if is_interactive:
             username = input("[?] Username: ")
         else:
@@ -13,7 +13,7 @@ def handler(sub_modules, args, is_interactive=True):
         print(f"[*] Using username: {username}")
         lookup.start(username=username)
     
-    elif sub_modules_str == "directory":
+    elif sub_modules_str == "search/directory":
         if is_interactive:
             name = input("[?] Username: ")
             first_or_last = input("[?] First or Last name? [^first/last]: ")
