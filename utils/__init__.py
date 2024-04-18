@@ -1,2 +1,1 @@
-from . import texts
-from . import vars
+from . import help
