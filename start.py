@@ -2,6 +2,7 @@ import sys
 
 from utils import help
 from modules import username
+from modules import email
 
 args =  sys.argv[:]
 
@@ -30,3 +31,6 @@ if main_module == "help":
     
 elif main_module == "username":
     username.handler(sub_modules=sub_modules, args=args_to_pass, is_interactive=is_interactive)
+
+elif main_module == "email":
+    email.handler(sub_modules=sub_modules, args=args_to_pass, is_interactive=is_interactive)
