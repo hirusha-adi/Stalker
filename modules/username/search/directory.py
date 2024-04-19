@@ -3,7 +3,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-def request_page(url: str):
+def __perform_check(url: str):
     response = requests.get(url)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -29,4 +29,4 @@ def start(name: str, first_or_last: str):
         print("[!!] Invalid arguments passed for `name_type`")
         return
         
-    request_page(url=url)
+    __perform_check(url=url)

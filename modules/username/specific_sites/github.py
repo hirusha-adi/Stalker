@@ -1,15 +1,15 @@
 import requests
 
-def get_json(url):
+def __get_json(url):
     response = requests.get(url)
     
     if response.status_code == 200:
         data = response.json()
-        print_github_json(data)
+        __print_json(data)
     else:
         print(f"Failed to fetch data from the GitHub API. Status code: {response.status_code}")
 
-def print_github_json(data):
+def __print_json(data):
     for event in data:
         print("Event Type:", event["type"])
         print("Actor:")
@@ -42,4 +42,4 @@ def print_github_json(data):
 
 def start(username):
     url = f"https://api.github.com/users/{username}/events/public"
-    get_json(url=url)
+    __get_json(url=url)

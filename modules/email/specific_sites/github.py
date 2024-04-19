@@ -1,6 +1,6 @@
 import requests
 
-def github(url: str):
+def __perform_check(url: str):
     r = requests.get(url)
     
     if r.status_code != 200:
@@ -38,4 +38,4 @@ def github(url: str):
 
 def start(email: str):
     url = f"https://api.github.com/search/users?q={email}+in:email"
-    github(url)
+    __perform_check(url)
