@@ -1,2 +1,4 @@
+- [OSINT Framework](https://osintframework.com/) - Used to discover great tools.
 - [WebBreacher/WhatsMyName](https://github.com/WebBreacher/WhatsMyName/blob/main/wmn-data.json) - Used for my own implementation of the accounts checker functionality with python.
+- [namedir.com](https://namesdir.com) - Used to scrape it for names. 
 - [N0rz3/Zehef](https://github.com/N0rz3/Zehef/) - Used to check if accounts exists in specific sites for the given email.
