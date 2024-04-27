@@ -7,6 +7,7 @@ import requests
 from urllib.parse import urlparse
 from urllib.parse import ParseResult
 
+
 def extract_main_url(input_url: str) -> str:
     try:
         parsed_url: ParseResult = urlparse(input_url)
@@ -14,8 +15,11 @@ def extract_main_url(input_url: str) -> str:
         return main_url
     except:
         return input_url
-    
-def check_username_on_site(site: dict, username: str, session: requests.sessions.Session) -> None:
+
+
+def check_username_on_site(
+    site: dict, username: str, session: requests.sessions.Session
+) -> None:
     uri: str = site.get("uri_check", "")
     method: str = site.get("method", "GET")
     payload: t.Union[str, dict] = site.get("post_body", {})
@@ -31,12 +35,15 @@ def check_username_on_site(site: dict, username: str, session: requests.sessions
             response = session.get(final_url, headers=headers, timeout=10)
         elif method == "POST":
             final_url = uri
-            response = session.post(final_url, data=payload, headers=headers, timeout=10)
+            response = session.post(
+                final_url, data=payload, headers=headers, timeout=10
+            )
 
         response.raise_for_status()
 
         if response.status_code == site["e_code"] and site["e_string"] in response.text:
-            print(f"""
+            print(
+                f"""
 [+] Found {username} on {site.get("name")}:
     - Username: {username}
     - Platform Name: {site.get("name")}
@@ -45,19 +52,25 @@ def check_username_on_site(site: dict, username: str, session: requests.sessions
     - Exists: Claimed
     - HTTP Status: {response.status_code}
     - Response Time (s): {response.elapsed.total_seconds():.3f}
-                  """)
-            
-        elif (response.status_code == site["m_code"] and site["m_string"] in response.text):
+                  """
+            )
+
+        elif (
+            response.status_code == site["m_code"] and site["m_string"] in response.text
+        ):
             print("None")
 
     except requests.exceptions.RequestException as req_err:
         print(f"Error occurred for {site['name']} - {req_err}")
-    
+
+
 def start(username: str) -> None:
     support_file = os.path.join(os.getcwd(), "support", "wmn-data.json")
     if not os.path.isfile(support_file):
         try:
-            response = requests.get("https://raw.githubusercontent.com/WebBreacher/WhatsMyName/main/wmn-data.json")
+            response = requests.get(
+                "https://raw.githubusercontent.com/WebBreacher/WhatsMyName/main/wmn-data.json"
+            )
             response.raise_for_status()
         except requests.exceptions.HTTPError as http_err:
             print(f"HTTP error occurred: {http_err}")
