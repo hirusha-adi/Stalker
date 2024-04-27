@@ -1,25 +1,10 @@
 import re
-
 import requests
 from bs4 import BeautifulSoup
+from utils import errors
 
-def __perform_check(url: str):
-    response = requests.get(url)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, 'html.parser')
 
-        ul_tag = soup.find('ul', class_='limheight')
-        if ul_tag:
-            li_tags = ul_tag.find_all('li')
-            for li_tag in li_tags:
-                name_text = li_tag.text.strip()
-                name_text = re.sub(r'\d', '', name_text)
-                print(name_text)
-
-    else:
-        print(f"[!!] Failed to fetch data from the website. Visit {url}")
-        return None
-
+@errors.handle_errors
 def start(name: str, first_or_last: str):
     if first_or_last.lower() == "first":
         url = f"https://namesdir.com/F_{name}"
@@ -28,5 +13,19 @@ def start(name: str, first_or_last: str):
     else:
         print("[!!] Invalid arguments passed for `name_type`")
         return
-        
-    __perform_check(url=url)
+
+    response = requests.get(url)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        ul_tag = soup.find("ul", class_="limheight")
+        if ul_tag:
+            li_tags = ul_tag.find_all("li")
+            for li_tag in li_tags:
+                name_text = li_tag.text.strip()
+                name_text = re.sub(r"\d", "", name_text)
+                print(name_text)
+
+    else:
+        print(f"[!!] Failed to fetch data from the website. Visit {url}")
+        return None
