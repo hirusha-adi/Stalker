@@ -1,7 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+from utils import errors
 
 
+@errors.handle_errors
 def start(email: str):
     try:
         session = requests.Session()
@@ -20,8 +22,5 @@ def start(email: str):
         else:
             print("[+] Account not found in Pornhub.")
 
+    finally:
         session.close()
-
-    except:
-        if session:
-            session.close()

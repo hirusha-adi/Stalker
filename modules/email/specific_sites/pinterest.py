@@ -1,6 +1,8 @@
 import requests
+from utils import errors
 
 
+@errors.handle_errors
 def start(email: str):
     params = {
         "source_url": "/",
@@ -8,6 +10,7 @@ def start(email: str):
     }
     url = "https://www.pinterest.fr/resource/EmailExistsResource/get/"
     response = requests.get(url, params=params)
+
     if response.json()["resource_response"]["data"]:
         print("[+] Account found in pinterest.")
     else:

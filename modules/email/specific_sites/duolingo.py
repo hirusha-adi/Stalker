@@ -1,6 +1,8 @@
 import requests
+from utils import errors
 
 
+@errors.handle_errors
 def start(email: str):
 
     r = requests.get(
