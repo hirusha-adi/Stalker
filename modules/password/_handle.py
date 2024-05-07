@@ -1,7 +1,9 @@
 from . import haveibeenpwned
+from . import pastebin
 from utils.help import password_help as show_help
 
 module_functions = {
+    "pastebin": pastebin.start,
     "haveibeenpwned/check": haveibeenpwned.check.start,
     "haveibeenpwned/range": haveibeenpwned.range_.start,
 }
