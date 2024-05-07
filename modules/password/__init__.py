@@ -1,62 +1,50 @@
 """
-Module Name: `username`
+Module Name: `password`
 
 Modules List
 ------------
 
 Sub-modules ->
-    username/search/lookup - Username search engine
-    username/search/directory - Names directory
-    username/specific/amazon - Amazon username search
-    username/specific/github - Github username search
+    pastebin - Search for pastebin dumps
+    haveibeenpwned/check - Check if pawned?
+    haveibeenpwned/range - List pawned sha-1 suffixes.
 
-Not implemented yet (To-DO) ->
-    username/specific/tinder - Tinder username search
-    username/specific/pgp - MIT PGP Key Server
 
 Modules Help
 ------------
 
-username/search/lookup
+pastebin
     - Description
-        Made using the WebBreacher/WhatsMyName list. 
-        Provides a similar functionality to https://whatsmyname.app/ using Python.
+        Scan for public password dumps in pastebin
+        Utilizing google dorks  
     - Usage
-        python stalker.py "username/search/lookup" <username>
+        python stalker.py "pastebin" <password>
     - Examples
-        python stalker.py "username/search/lookup" hirusha-adi
-        python stalker.py "username/search/lookup" hirusha_adi
-        python stalker.py "username/search/lookup" "hirusha-adi"
+        python stalker.py "pastebin" "admin"
+        python stalker.py "pastebin" admin123
+        python stalker.py "pastebin" "admin123%$686%^&"
 
-username/search/directory
+haveibeenpwned/check
     - Description
-        Name Directory. 
-        Will scrape https://namesdir.com/ and print the names list.
+        Check how many times your password has been breached
+        using the API of haveibeenpawned.com
     - Usage
-        python stalker.py "username/search/directory" <name> <name_type>
+        python stalker.py "haveibeenpwned/check" <password>
     - Examples
-        python stalker.py "username/search/directory" John first
-        python stalker.py "username/search/directory" Doe last
+        python stalker.py "haveibeenpwned/check" "admin"
+        python stalker.py "haveibeenpwned/check" admin123
+        python stalker.py "haveibeenpwned/check" "admin123%$686%^&"
     
-username/specific/amazon
+haveibeenpwned/range
     - Description
         Use google dorks to find information about the given amazon username.
     - Usage
-        python stalker.py "username/specific/amazon" <username>
+        python stalker.py "haveibeenpwned/range" <password>
     - Examples
-        python stalker.py "username/specific/amazon" hirusha-adi
-        python stalker.py "username/specific/amazon" hirusha_adi
-        python stalker.py "username/specific/amazon" "hirusha-adi"
+        python stalker.py "haveibeenpwned/range" "admin"
+        python stalker.py "haveibeenpwned/range" admin123
+        python stalker.py "haveibeenpwned/range" "admin123%$686%^&"
 
-username/specific/github
-    - Description
-        Use GitHub's API to get the past events of a given username.
-    - Usage
-        python stalker.py "username/specific/github" <username>
-    - Examples
-        python stalker.py "username/specific/github" hirusha-adi
-        python stalker.py "username/specific/github" hirusha_adi
-        python stalker.py "username/specific/github" "hirusha-adi"
 """
 
 from ._handle import handler
