@@ -3,18 +3,24 @@ from .search import directory
 from .specific_sites import amazon
 from .specific_sites import github
 
+module_functions = {
+    "search/lookup": lookup.start,
+    "specific_sites/amazon": amazon.start,
+    "specific_sites/github": github.start
+}
+
 def handler(sub_modules, args, is_interactive=True):
     
     sub_modules_str = "/".join(sub_modules)
     
-    if sub_modules_str == "search/lookup":
+    if sub_modules_str in module_functions:
         if is_interactive:
             username = input("[?] Username: ")
         else:
             username = args[0]
-        print(f"[*] Using username: {username}")
-        lookup.start(username=username)
-    
+        print(f"[*] Using Username: {username}")
+        module_functions[sub_modules_str](username=username)
+
     elif sub_modules_str == "search/directory":
         if is_interactive:
             name = input("[?] Username: ")
@@ -25,20 +31,19 @@ def handler(sub_modules, args, is_interactive=True):
         print(f"[*] Using name: {name}")
         print(f"[*] Using name as {first_or_last} name")
         directory.start(name=name, first_or_last=first_or_last)
-        
-    elif sub_modules_str == "specific_sites/amazon":
-        if is_interactive:
-            username = input("[?] Username: ")
-        else:
-            username = args[0]
-        print(f"[*] Using username: {username}")
-        amazon.start(username=username)
     
-    elif sub_modules_str == "specific_sites/github":
-        if is_interactive:
-            username = input("[?] Username: ")
-        else:
-            username = args[0]
-        print(f"[*] Using username: {username}")
-        github.start(username=username)
+    
+    # Use this as a template to extent in the future if required.
+    # -----
+    # elif sub_modules_str == "specific/module":
+    #     if is_interactive:
+    #         username = input("[?] Username: ")
+    #     else:
+    #         username = args[0]
+    #     print(f"[*] Using Email: {email}")
+    #     module.start(email=email)
+    # -----
+    
+    else:
+        print("Invalid sub_module provided.")
         
