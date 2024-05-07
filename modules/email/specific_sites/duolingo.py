@@ -8,7 +8,7 @@ def start(email: str):
     r = requests.get(
         "https://www.duolingo.com/2017-06-30/users", params={"email": email}
     )
-
+    
     try:
         if """{"users":[]}""" in r.text:
             print("> Duolingo")

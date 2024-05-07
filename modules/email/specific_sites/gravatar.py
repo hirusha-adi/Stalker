@@ -4,8 +4,8 @@ from utils import errors
 
 
 @errors.handle_errors
-def start(target: str):
-    encoded_email = target.lower().encode("utf-8")
+def start(email: str):
+    encoded_email = email.lower().encode("utf-8")
     hashed_email = hashlib.sha256(encoded_email).hexdigest()
     r = requests.get(f"https://en.gravatar.com/{hashed_email}.json")
 
