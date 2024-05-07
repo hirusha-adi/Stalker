@@ -11,101 +11,30 @@ from .specific_sites import spotify
 from .specific_sites import strava
 from .specific_sites import twitter
 
-def handler(sub_modules, args, is_interactive=True):
-    
-    sub_modules_str = "/".join(sub_modules)
-    if sub_modules_str == "specific/chess_com":
-        if is_interactive:
-            email = input("[?] Email: ")
-        else:
-            email = args[0]
-        print(f"[*] Using Email: {email}")
-        chess_com.start(email=email)
-    
-    elif sub_modules_str == "specific/deezer":
-        if is_interactive:
-            email = input("[?] Email: ")
-        else:
-            email = args[0]
-        print(f"[*] Using Email: {email}")
-        deezer.start(email=email)
-    
-    elif sub_modules_str == "specific/duolingo":
-        if is_interactive:
-            email = input("[?] Email: ")
-        else:
-            email = args[0]
-        print(f"[*] Using Email: {email}")
-        duolingo.start(email=email)
-        
-    elif sub_modules_str == "specific/github":
-        if is_interactive:
-            email = input("[?] Email: ")
-        else:
-            email = args[0]
-        print(f"[*] Using Email: {email}")
-        github.start(email=email)
-    
-    elif sub_modules_str == "specific/gravatar":
-        if is_interactive:
-            email = input("[?] Email: ")
-        else:
-            email = args[0]
-        print(f"[*] Using Email: {email}")
-        gravatar.start(email=email)
-    
-    elif sub_modules_str == "specific/imgur":
-        if is_interactive:
-            email = input("[?] Email: ")
-        else:
-            email = args[0]
-        print(f"[*] Using Email: {email}")
-        imgur.start(email=email)
-    
-    elif sub_modules_str == "specific/instagram":
-        if is_interactive:
-            email = input("[?] Email: ")
-        else:
-            email = args[0]
-        print(f"[*] Using Email: {email}")
-        instagram.start(email=email)
-        
-    elif sub_modules_str == "specific/pinterest":
-        if is_interactive:
-            email = input("[?] Email: ")
-        else:
-            email = args[0]
-        print(f"[*] Using Email: {email}")
-        pinterest.start(email=email)
-    
-    elif sub_modules_str == "specific/pornhub":
-        if is_interactive:
-            email = input("[?] Email: ")
-        else:
-            email = args[0]
-        print(f"[*] Using Email: {email}")
-        pornhub.start(email=email)
-        
-    elif sub_modules_str == "specific/spotify":
-        if is_interactive:
-            email = input("[?] Email: ")
-        else:
-            email = args[0]
-        print(f"[*] Using Email: {email}")
-        spotify.start(email=email)
+module_functions = {
+    "specific/chess_com": chess_com.start,
+    "specific/deezer": deezer.start,
+    "specific/duolingo": duolingo.start,
+    "specific/github": github.start,
+    "specific/gravatar": gravatar.start,
+    "specific/imgur": imgur.start,
+    "specific/instagram": instagram.start,
+    "specific/pinterest": pinterest.start,
+    "specific/pornhub": pornhub.start,
+    "specific/spotify": spotify.start,
+    "specific/strava": strava.start,
+    "specific/twitter": twitter.start
+}
 
-    elif sub_modules_str == "specific/strava":
-        if is_interactive:
-            email = input("[?] Email: ")
-        else:
-            email = args[0]
-        print(f"[*] Using Email: {email}")
-        strava.start(email=email)
+def handler(sub_modules, args, is_interactive=True):
+    sub_modules_str = "/".join(sub_modules)
     
-    elif sub_modules_str == "specific/twitter":
+    if sub_modules_str in module_functions:
         if is_interactive:
             email = input("[?] Email: ")
         else:
             email = args[0]
         print(f"[*] Using Email: {email}")
-        twitter.start(email=email)
+        module_functions[sub_modules_str](email=email)
+    else:
+        print("Invalid sub_module provided.")
