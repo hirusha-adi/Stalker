@@ -36,5 +36,17 @@ def handler(sub_modules, args, is_interactive=True):
             email = args[0]
         print(f"[*] Using Email: {email}")
         module_functions[sub_modules_str](email=email)
+        
+    # Use this as a template to extent in the future if required.
+    # -----
+    # elif sub_modules_str == "specific/module":
+    #     if is_interactive:
+    #         email = input("[?] Email: ")
+    #     else:
+    #         email = args[0]
+    #     print(f"[*] Using Email: {email}")
+    #     module.start(email=email)
+    # -----
+    
     else:
         print("Invalid sub_module provided.")
