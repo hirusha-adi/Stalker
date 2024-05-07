@@ -2,7 +2,7 @@ from .search import lookup
 from .search import directory
 from .specific_sites import amazon
 from .specific_sites import github
-from utils.help import username_help
+from utils.help import username_help as show_help
 
 module_functions = {
     "search/lookup": lookup.start,
@@ -41,11 +41,10 @@ def handler(sub_modules, args, is_interactive=True):
     #         username = input("[?] Username: ")
     #     else:
     #         username = args[0]
-    #     print(f"[*] Using Email: {email}")
-    #     module.start(email=email)
+    #     print(f"[*] Using Username: {username}")
+    #     module.start(username=username)
     # -----
     
     else:
         print("Invalid sub_module provided.")
-        username_help()
-        
+        show_help()
