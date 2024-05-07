@@ -6,8 +6,8 @@ from utils.help import username_help as show_help
 
 module_functions = {
     "search/lookup": lookup.start,
-    "specific_sites/amazon": amazon.start,
-    "specific_sites/github": github.start
+    "specific/amazon": amazon.start,
+    "specific/github": github.start
 }
 
 def handler(sub_modules, args, is_interactive=True):
