@@ -57,3 +57,7 @@ username/specific/github
     - Examples
         python stalker.py "username/specific/github" "hirusha-adi"
 """)
+    
+    
+def password_help():
+    print(""" Password help message.""")
