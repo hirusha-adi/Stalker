@@ -2,6 +2,7 @@ from .search import lookup
 from .search import directory
 from .specific_sites import amazon
 from .specific_sites import github
+from utils.help import username_help
 
 module_functions = {
     "search/lookup": lookup.start,
@@ -33,7 +34,7 @@ def handler(sub_modules, args, is_interactive=True):
         directory.start(name=name, first_or_last=first_or_last)
     
     
-    # Use this as a template to extent in the future if required.
+    # Use this as a template to extend in the future if required.
     # -----
     # elif sub_modules_str == "specific/module":
     #     if is_interactive:
@@ -46,4 +47,5 @@ def handler(sub_modules, args, is_interactive=True):
     
     else:
         print("Invalid sub_module provided.")
+        username_help()
         
