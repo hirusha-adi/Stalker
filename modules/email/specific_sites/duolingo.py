@@ -9,18 +9,13 @@ def start(email: str):
         "https://www.duolingo.com/2017-06-30/users", params={"email": email}
     )
     
-    try:
-        if """{"users":[]}""" in r.text:
-            print("> Duolingo")
+    if """{"users":[]}""" in r.text:
+        print("[-] Account not found in doulingo.")
 
+    else:
+        username = r.json()["users"][0]["username"]
+        if username is not None and username != "":
+            print("[+] Account found in duolingo, with username: {username}")
         else:
-            username = r.json()["users"][0]["username"]
+            print("[-] Account not found in duolingo.")
 
-            if username is not None and username != "":
-                print("[+] Account found in duolingo, with username: {username}")
-
-            else:
-                print("[-] Account not found in duolingo.")
-
-    except Exception as e:
-        print("An error occurred:", e)
