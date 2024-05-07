@@ -3,6 +3,7 @@ import sys
 from utils import help
 from modules import username
 from modules import email
+from modules import password
 
 args =  sys.argv[:]
 
@@ -34,3 +35,6 @@ elif main_module == "username":
 
 elif main_module == "email":
     email.handler(sub_modules=sub_modules, args=args_to_pass, is_interactive=is_interactive)
+
+elif main_module == "password":
+    password.handler(sub_modules=sub_modules, args=args_to_pass, is_interactive=is_interactive)
