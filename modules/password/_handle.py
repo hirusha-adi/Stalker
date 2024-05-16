@@ -26,7 +26,7 @@ def handler(sub_modules, args, is_interactive=True):
         else:
             breach_name = args[0]
         print(f"[*] Using Breach Name: {breach_name}")
-        haveibeenpwned.breach_info.start(password=breach_name)
+        haveibeenpwned.breach_info.start(breach_name=breach_name)
     
     elif sub_modules_str == "haveibeenpwned/domain_check":
         if is_interactive:
