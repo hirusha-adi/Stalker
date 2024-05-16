@@ -10,6 +10,7 @@ from .specific_sites import pornhub
 from .specific_sites import spotify
 from .specific_sites import strava
 from .specific_sites import twitter
+from . import holehe_
 
 module_functions = {
     "specific/chess_com": chess_com.start,
@@ -23,7 +24,8 @@ module_functions = {
     "specific/pornhub": pornhub.start,
     "specific/spotify": spotify.start,
     "specific/strava": strava.start,
-    "specific/twitter": twitter.start
+    "specific/twitter": twitter.start,
+    "holehe": holehe_.start
 }
 
 def handler(sub_modules, args, is_interactive=True):
@@ -36,7 +38,17 @@ def handler(sub_modules, args, is_interactive=True):
             email = args[0]
         print(f"[*] Using Email: {email}")
         module_functions[sub_modules_str](email=email)
-        
+    
+    elif sub_modules_str == "specific/all":
+        if is_interactive:
+            email = input("[?] Email: ")
+        else:
+            email = args[0]
+        print(f"[*] Using Email: {email}")
+        for module_function in module_functions:
+            if module_function.startswith("specific/"):
+                module_functions[module_function](email=email)
+    
     # Use this as a template to extent in the future if required.
     # -----
     # elif sub_modules_str == "specific/module":
