@@ -39,7 +39,7 @@ def handler(sub_modules, args, is_interactive=True):
     elif sub_modules_str == "haveibeenpwned/domain_list":
         haveibeenpwned.domains_list.start()
         
-    elif sub_modules_str == "haveibeenpwned/domain_check":
+    elif sub_modules_str in "haveibeenpwned/filtered_check":
         if is_interactive:
             email = input("[?] Email: ")
             domain = input("[?] Domain Name: ")
