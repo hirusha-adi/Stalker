@@ -1,5 +1,6 @@
 import click
 import typing as t
+import modules
 
 # Email command
 @click.group()
@@ -8,7 +9,10 @@ def email():
 
 @email.command('holehe')
 @click.option('--email', required=True, help='Email address')
-def email_holehe(email: str) -> None:
+@click.option('--color', is_flag=True, default=False, help='Enable color output')
+@click.option('--clear', is_flag=True, default=False, help='Clear the output')
+def email_holehe(email: str, color: bool = False, clear: bool = False) -> None:
+    modules.email.holehe_.start(email)
     print(f"Running email holehe with email: {email}")
 
 @email.command('specific/chess_com')
