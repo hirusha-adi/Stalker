@@ -1,0 +1,6 @@
+- [OSINT Framework](https://osintframework.com/) - Used to discover great tools.
+- [WebBreacher/WhatsMyName](https://github.com/WebBreacher/WhatsMyName/blob/main/wmn-data.json) - Used for my own implementation of the accounts checker functionality with python.
+- [namedir.com](https://namesdir.com) - Used to scrape it for names. 
+- [N0rz3/Zehef](https://github.com/N0rz3/Zehef/) - Used to check if accounts exists in specific sites for the given email.
+- [thewhiteh4t/pwnedOrNot](https://github.com/thewhiteh4t/pwnedOrNot/tree/master) - Used its code to deal with the haveibeenpawned API.
+- [megadose/holehe](https://github.com/megadose/holehe) - holehe allows you to check if the mail is used on different sites like twitter, instagram and will retrieve information on sites with the forgotten password function.
