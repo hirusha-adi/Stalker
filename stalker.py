@@ -140,23 +140,23 @@ def username():
 
 @username.command('search/lookup')
 @click.option('--username', required=True, help='Username')
-def username_lookup(username: str) -> None:
-    print(f"Running username search/lookup with username: {username}")
+def username_search_lookup(username: str) -> None:
+    modules.username.search.lookup.start(username)
 
 @username.command('search/directory')
 @click.option('--username', required=True, help='Username')
-def username_directory(username: str) -> None:
-    print(f"Running username search/directory with username: {username}")
+def username_search_directory(username: str) -> None:
+    modules.username.search.directory.start(username)
 
 @username.command('specific/amazon')
 @click.option('--username', required=True, help='Username')
-def username_amazon(username: str) -> None:
-    print(f"Running username specific/amazon with username: {username}")
+def username_specific_amazon(username: str) -> None:
+    modules.username.specific.amazon.start(username)
 
 @username.command('specific/github')
 @click.option('--username', required=True, help='Username')
-def username_github(username: str) -> None:
-    print(f"Running username specific/github with username: {username}")
+def username_specific_github(username: str) -> None:
+    modules.username.specific.github.start(username)
 
 
 if __name__ == '__main__':
