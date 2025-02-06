@@ -124,13 +124,13 @@ def phonenumber():
 
 @phonenumber.command('phoneinfoga/dorks')
 @click.option('--number', required=True, help='Phone number')
-def phonenumber_dorks(number: str) -> None:
-    print(f"Running phonenumber phoneinfoga/dorks with number: {number}")
+def phonenumber_phoneinfoga_dorks(number: str) -> None:
+    modules.phonenumber.phoneinfoga.dorks.start(number)
 
 @phonenumber.command('phoneinfoga/search')
 @click.option('--number', required=True, help='Phone number')
-def phonenumber_search(number: str) -> None:
-    print(f"Running phonenumber phoneinfoga/search with number: {number}")
+def phonenumber_phoneinfoga_search(number: str) -> None:
+    modules.phonenumber.phoneinfoga.search.start(number)
 
 
 # Username command
