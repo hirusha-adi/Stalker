@@ -1,8 +1,21 @@
 import click
 import typing as t
 import modules
+from utils.initialize import initialize
 
-# Email command
+# ---------------------------------------------------------------------------
+# Initialize Stuff
+# ---------------------------------------------------------------------------
+
+@click.command('init')
+def init() -> None:
+    initialize()
+
+
+# ---------------------------------------------------------------------------
+# Emails
+# ---------------------------------------------------------------------------
+
 @click.group()
 def email():
     pass
@@ -76,7 +89,10 @@ def email_specific__twitter(email: str) -> None:
     modules.email.specific.twitter.start(email)
 
 
-# Password command
+# ---------------------------------------------------------------------------
+# Passwords
+# ---------------------------------------------------------------------------
+
 @click.group()
 def password():
     pass
@@ -117,7 +133,11 @@ def password_haveibeenpwned_filtered_check(email: str, domain: str) -> None:
 def password_haveibeenpwned_range(password: str) -> None:
     modules.password.haveibeenpwned.range_.start(password)
 
-# Phonenumber command
+
+# ---------------------------------------------------------------------------
+# Phone Numbers
+# ---------------------------------------------------------------------------
+
 @click.group()
 def phonenumber():
     pass
@@ -132,8 +152,10 @@ def phonenumber_phoneinfoga_dorks(number: str) -> None:
 def phonenumber_phoneinfoga_search(number: str) -> None:
     modules.phonenumber.phoneinfoga.search.start(number)
 
+# ---------------------------------------------------------------------------
+# Usernames
+# ---------------------------------------------------------------------------
 
-# Username command
 @click.group()
 def username():
     pass
@@ -164,6 +186,7 @@ if __name__ == '__main__':
     def stalker():
         pass
 
+    stalker.add_command(init)
     stalker.add_command(email)
     stalker.add_command(password)
     stalker.add_command(phonenumber)
