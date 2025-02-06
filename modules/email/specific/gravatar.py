@@ -1,9 +1,9 @@
 import requests
 import hashlib
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(email: str):
     encoded_email = email.lower().encode("utf-8")
     hashed_email = hashlib.sha256(encoded_email).hexdigest()

@@ -1,9 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(email: str):
     try:
         session = requests.Session()

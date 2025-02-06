@@ -1,8 +1,8 @@
 import requests
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(email: str):
     r = requests.get(f"https://api.github.com/search/users?q={email}+in:email")
 

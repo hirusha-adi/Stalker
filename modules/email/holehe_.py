@@ -1,8 +1,8 @@
 import os
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(email: str, color=False, clear=False) -> None:
     try:
         import holehe  

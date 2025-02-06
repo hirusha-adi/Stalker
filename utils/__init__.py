@@ -1,3 +1,3 @@
 from . import help
-from . import errors
+from . import decorators
 from .google import search_google

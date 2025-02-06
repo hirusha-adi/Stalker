@@ -1,8 +1,8 @@
 import requests
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(username):
     response = requests.get(f"https://api.github.com/users/{username}/events/public")
 
