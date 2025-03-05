@@ -1,0 +1,38 @@
+name: Build and Release Stalker
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Generate Build Number and Tag
+      id: create_tag
+      run: |
+        $TAG="v$env:GITHUB_RUN_NUMBER"
+        echo "TAG_NAME=$TAG" >> $env:GITHUB_ENV
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git tag $TAG
+        git push origin $TAG
+      shell: pwsh
+
+    - name: Build Stalker CLI
+      uses: JackMcKew/pyinstaller-action-windows@main
+      with:
+        path: Windows
+        requirements: requirements.txt
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ env.TAG_NAME }}
+        name: "Stalker ${{ env.TAG_NAME }}"
+        draft: false
+        prerelease: false
+        files: Windows/dist/windows/stalker.exe
