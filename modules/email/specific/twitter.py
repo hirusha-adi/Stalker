@@ -1,8 +1,8 @@
 import requests
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(email: str):
     url = f"https://api.twitter.com/i/users/email_available.json?email={email}"
     response = requests.get(url)

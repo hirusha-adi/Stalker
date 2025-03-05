@@ -1,10 +1,10 @@
 import re
 import requests
 from bs4 import BeautifulSoup
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(name: str, first_or_last: str):
     if first_or_last.lower() == "first":
         url = f"https://namesdir.com/F_{name}"

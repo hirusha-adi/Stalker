@@ -1,7 +1,7 @@
 import pwnedpasswords
-from utils import errors
+from utils import decorators
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(password: str) -> None:
     x = pwnedpasswords.check(password)
     if x == 0:

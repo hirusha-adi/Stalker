@@ -1,8 +1,8 @@
 import requests
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(email: str):
     url = "https://www.instagram.com/accounts/emailsignup/"
     response = requests.get(url)

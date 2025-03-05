@@ -1,13 +1,12 @@
 import os
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
-def start(email: str, no_color=False, no_clear=False):
+@decorators.handle_errors
+def start(email: str, color=False, clear=False) -> None:
     try:
-        import holehe # make sure this is installed
+        import holehe  
     except ImportError:
         os.system("pip install holehe" if os.name == 'nt' else "pip3 install holehe")
-        
-    os.system(f"holehe {'--no-color' if no_color else ''} {'--no-clear' if no_clear else ''} {email}")
     
+    os.system(f"holehe {'--no-color' if not color else ''} {'--no-clear' if not clear else ''} {email}")

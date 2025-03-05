@@ -1,8 +1,8 @@
 import requests
 from tabulate import tabulate
-from utils import errors
+from utils import decorators
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(breach_name):
     """Get information about a specific breach."""
     print(f"Getting information about breach: {breach_name}...")

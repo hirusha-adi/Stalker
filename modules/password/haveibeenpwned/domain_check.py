@@ -1,7 +1,7 @@
 import requests
-from utils import errors
+from utils import decorators
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(domain):
     """Check if the specified domain has been breached."""
     print(f"Checking Breach status for Domain: {domain}...")

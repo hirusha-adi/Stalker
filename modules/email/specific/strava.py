@@ -1,8 +1,8 @@
 import requests
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(email: str):
     url = f"https://www.strava.com/athletes/email_unique?email={email}"
     response = requests.get(url)

@@ -1,8 +1,8 @@
 import requests
 from tabulate import tabulate
-from utils import errors
+from utils import decorators
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(email, domain):
     """Check if the email address has been breached for a specific domain."""
     print(f"Checking Breach status for {email}...")

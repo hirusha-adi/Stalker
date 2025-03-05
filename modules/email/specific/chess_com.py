@@ -1,8 +1,8 @@
 import requests
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(email: str):
     r = requests.get(f"https://www.chess.com/callback/email/available?email={email}")
 

@@ -1,7 +1,7 @@
 import requests
-from utils import errors
+from utils import decorators
 
-@errors.handle_errors
+@decorators.handle_errors
 def start():
     """Fetch and display a list of breached domains."""
     print("Fetching List of Breached Domains...\n")

@@ -1,8 +1,8 @@
 from utils import search_google
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(password: str):
     search_google(f'site:pastebin.com "{password}"')
     

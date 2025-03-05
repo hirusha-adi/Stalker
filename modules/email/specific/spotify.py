@@ -1,8 +1,8 @@
 import requests
-from utils import errors
+from utils import decorators
 
 
-@errors.handle_errors
+@decorators.handle_errors
 def start(email: str):
     url = f"https://spclient.wg.spotify.com/signup/public/v1/account?validate=1&email={email}"
     response = requests.get(url)
