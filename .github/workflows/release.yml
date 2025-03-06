@@ -46,5 +46,5 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            dist/stalker-win64.exe
+            dist/stalker-windows.exe
             dist/stalker-linux

@@ -32,10 +32,10 @@ jobs:
 
       - name: Rename file
         run: |
-          Rename-Item -Path dist/stalker.exe -NewName stalker-win64.exe
+          Rename-Item -Path dist/stalker.exe -NewName stalker-windows.exe
 
       - name: Upload artifact (Windows)
         uses: actions/upload-artifact@v4
         with:
           name: stalker-windows
-          path: dist/stalker-win64.exe
+          path: dist/stalker-windows.exe
