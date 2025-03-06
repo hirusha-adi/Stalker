@@ -1,0 +1,50 @@
+name: Create Release
+
+on:
+  workflow_run:
+    workflows: ["Windows Build", "Linux Build"]
+    types:
+      - completed
+
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download artifacts (Windows)
+        uses: actions/download-artifact@v4
+        with:
+          name: stalker-windows
+          path: dist/
+
+      - name: Download artifacts (Linux)
+        uses: actions/download-artifact@v4
+        with:
+          name: stalker-linux
+          path: dist/
+
+      - name: Create Tag
+        id: create_tag
+        run: |
+          TAG="b${{ github.run_number }}"
+          echo "TAG_NAME=$TAG" >> $GITHUB_ENV
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git tag $TAG
+          git push origin $TAG
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          name: "Build ${{ env.TAG_NAME }}"
+          draft: false
+          prerelease: false
+          files: |
+            dist/stalker-win64.exe
+            dist/stalker-linux
