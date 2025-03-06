@@ -19,7 +19,7 @@ jobs:
       - name: Download artifacts (Windows)
         uses: actions/download-artifact@v4
         with:
-          name: stalker-windows
+          name: stalker-windows.exe
           path: dist/
 
       - name: Download artifacts (Linux)
