@@ -1,0 +1,52 @@
+name: Windows Build & Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build executables with PyInstaller
+        run: |
+          pyinstaller stalker.py --noconfirm --onefile --name "stalker" --console
+
+      - name: Rename files
+        run: |
+          Rename-Item -Path dist/stalker.exe -NewName stalker-winx64.exe
+
+      - name: Create Tag
+        id: create_tag
+        run: |
+          $TAG="b$env:GITHUB_RUN_NUMBER"
+          echo "TAG_NAME=$TAG" >> $env:GITHUB_ENV
+          git tag $TAG
+          git push origin $TAG
+        shell: pwsh
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          name: "Build ${{ env.TAG_NAME }}"
+          draft: false
+          prerelease: false
+          files: |
+            dist/stalker-winx64.exe
