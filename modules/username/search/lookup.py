@@ -1,11 +1,11 @@
 import os
 import json
 import typing as t
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
-from urllib.parse import urlparse
-from urllib.parse import ParseResult
+from urllib.parse import urlparse, ParseResult
+from tqdm import tqdm
 
 
 def extract_main_url(input_url: str) -> str:
@@ -58,10 +58,10 @@ def check_username_on_site(
         elif (
             response.status_code == site["m_code"] and site["m_string"] in response.text
         ):
-            print("None")
+            return None  # Not found
 
-    except requests.exceptions.RequestException as req_err:
-        print(f"Error occurred for {site['name']} - {req_err}")
+    except requests.exceptions.RequestException:
+        return None  # Handle request failure
 
 
 def start(username: str) -> None:
@@ -72,27 +72,26 @@ def start(username: str) -> None:
                 "https://raw.githubusercontent.com/WebBreacher/WhatsMyName/main/wmn-data.json"
             )
             response.raise_for_status()
-        except requests.exceptions.HTTPError as http_err:
-            print(f"HTTP error occurred: {http_err}")
         except requests.exceptions.RequestException as req_err:
             print(f"Request exception occurred: {req_err}")
+            return
         else:
-            if response.status_code == 200:
-                with open(support_file, "wb") as f:
-                    f.write(response.content)
-                print(f"File downloaded and saved to: {support_file}")
-            else:
-                print(f"Unexpected response status code: {response.status_code}")
+            with open(support_file, "wb") as f:
+                f.write(response.content)
 
     with open(support_file, "r", encoding="utf-8") as file:
         data = json.load(file)
 
-    with ThreadPoolExecutor() as executor, requests.Session() as session:
-        futures = [
-            executor.submit(check_username_on_site, site, username, session)
-            for site in data["sites"]
-        ]
-        results = [future.result() for future in futures]
+    sites = data["sites"]
 
-    if not any(results):
-        print(f"[-] Username {username} not found on any site.")
+    with ThreadPoolExecutor() as executor, requests.Session() as session, tqdm(
+        total=len(sites), desc="Checking sites", unit="site"
+    ) as progress_bar:
+        futures = {executor.submit(
+            check_username_on_site, site, username, session): site for site in sites}
+
+        for future in as_completed(futures):
+            future.result()  # Wait for completion
+            progress_bar.update(1)  # Update tqdm progress
+
+    print(f"[-] Username {username} not found on any site.")
