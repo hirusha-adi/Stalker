@@ -4,28 +4,38 @@ Stalker is an OSINT (Open Source Intelligence) tool designed to help you gather 
 
 ## Modules
 
+#### Username Lookup
+
+Demonstration: [Youtube Video](https://youtu.be/wycDqyVkIdE)
+
+![demo](./showcase/demo_user_lookup.mp4)
+
 ## Installation
 
 ### From source
 
 1. Clone the repository:
+
 ```
 git clone https://github.com/hirusha-adi/Stalker.git
 cd Stalker
 ```
 
 2. Enable and activate a virtual environment (optional but recommended)
+
 ```
 python3 -m venv env
 source env/bin/activate
 ```
 
 3. Install the required dependencies:
+
 ```
 pip3 install -r requirements.txt
 ```
 
 4. Run the script:
+
 ```
 python3 stalker.py --help
 ```
@@ -55,5 +65,3 @@ python3 stalker.py --help
 ## How it works?
 
 Learn more here.
-
-
