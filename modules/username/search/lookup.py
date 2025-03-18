@@ -8,6 +8,9 @@ from urllib.parse import urlparse, ParseResult
 from tqdm import tqdm
 
 
+HITS: t.List[str] = []
+
+
 def extract_main_url(input_url: str) -> str:
     try:
         parsed_url: ParseResult = urlparse(input_url)
@@ -18,8 +21,10 @@ def extract_main_url(input_url: str) -> str:
 
 
 def check_username_on_site(
-    site: dict, username: str, session: requests.sessions.Session
+    site: dict, username: str, session: requests.sessions.Session, progress_bar: tqdm
 ) -> None:
+    global HITS
+
     uri: str = site.get("uri_check", "")
     method: str = site.get("method", "GET")
     payload: t.Union[str, dict] = site.get("post_body", {})
@@ -42,18 +47,19 @@ def check_username_on_site(
         response.raise_for_status()
 
         if response.status_code == site["e_code"] and site["e_string"] in response.text:
-            print(
-                f"""
-[+] Found {username} on {site.get("name")}:
-    - Username: {username}
-    - Platform Name: {site.get("name")}
-    - Platform URL: {extract_main_url(final_url)}
-    - User Profile URL: {final_url}
-    - Exists: Claimed
-    - HTTP Status: {response.status_code}
-    - Response Time (s): {response.elapsed.total_seconds():.3f}
-                  """
-            )
+            # Temporarily stop the progress bar updates
+            progress_bar.set_postfix({"Found": site["name"]}, refresh=True)
+            progress_bar.set_description(f"Found on {site['name']}")
+            progress_bar.update(1)
+
+            HITS.append(f"""[+] Found {username} on {site.get("name")}:
+\t- Username: {username}
+\t- Platform Name: {site.get("name")}
+\t- Platform URL: {extract_main_url(final_url)}
+\t- User Profile URL: {final_url}
+\t- Exists: Claimed
+\t- HTTP Status: {response.status_code}
+\t- Response Time (s): {response.elapsed.total_seconds():.3f}\n""")
 
         elif (
             response.status_code == site["m_code"] and site["m_string"] in response.text
@@ -88,10 +94,16 @@ def start(username: str) -> None:
         total=len(sites), desc="Checking sites", unit="site"
     ) as progress_bar:
         futures = {executor.submit(
-            check_username_on_site, site, username, session): site for site in sites}
+            check_username_on_site, site, username, session, progress_bar): site for site in sites}
 
         for future in as_completed(futures):
-            future.result()  # Wait for completion
-            progress_bar.update(1)  # Update tqdm progress
+            future.result()
+            progress_bar.update(1)
 
-    print(f"[-] Username {username} not found on any site.")
+    if HITS:
+        print(f"[+] Username {username} found on the following sites:")
+        print(f"="*30)
+        for hit in HITS:
+            print(hit)
+    else:
+        print(f"[-] Username {username} not found on any site.")
